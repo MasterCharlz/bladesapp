@@ -1,0 +1,13 @@
+{
+  "profiles": [
+    {
+      "crew_name": "",
+      "crew_type": "",
+      "subprofiles": [
+        {
+          "subprofile_type": "gm"
+        }
+      ]
+    }
+  ]
+}

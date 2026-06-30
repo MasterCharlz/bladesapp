@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, Flex, TextInput, Select, Collapsible, Heading } from './components';
 import PlayerCharacterRepeater from './widgets/Repeaters';
 import profilesData from './profiles.json';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfileSelection() {
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -20,6 +21,8 @@ export default function ProfileSelection() {
     setNewProfile({ crew_name: '', crew_type: '' });
     setShowCreateForm(false);
   };
+
+  const navigate = useNavigate();
 
   const handleCreateCrew = () => {
     if (!newProfile.crew_name.trim()) return;
@@ -64,7 +67,7 @@ export default function ProfileSelection() {
             </Collapsible.Header>
             <Collapsible.Body>
               <Flex marginBottom="md">
-                <Button icon="dice">GM View</Button>
+                <Button icon="dice" onClick={() => navigate(`/gm/${index}`)}>GM View</Button>
                 <Button variant="tertiary" marginLeft="auto" onClick={() => handleDeleteProfile(index)}>
                   Delete Crew
                 </Button>

@@ -9,10 +9,15 @@ export default function ProfileSelection() {
   const [profiles, setProfiles] = useState(() => {
     try {
       const raw = localStorage.getItem('profiles');
-      if (raw) return JSON.parse(raw);
-      return profilesData.profiles || [];
+      const parsed = raw ? JSON.parse(raw) : (profilesData.profiles || []);
+      // ensure each profile has a stable id and characters array
+      return (parsed || []).map((p) => ({
+        ...p,
+        id: p.id ?? crypto.randomUUID(),
+        characters: p.characters ?? [],
+      }));
     } catch (e) {
-      return profilesData.profiles || [];
+      return (profilesData.profiles || []).map((p) => ({ ...p, id: p.id ?? crypto.randomUUID(), characters: p.characters ?? [] }));
     }
   });
   const [newProfile, setNewProfile] = useState({ crew_name: '', crew_type: '' });
@@ -32,6 +37,7 @@ export default function ProfileSelection() {
       crew_type: newProfile.crew_type,
       subprofiles: [{ subprofile_type: 'gm' }],
       characters: [],
+      id: crypto.randomUUID(),
     };
 
     setProfiles((prev) => [...prev, createdProfile]);
@@ -47,18 +53,18 @@ export default function ProfileSelection() {
     }
   }, [profiles]);
 
-  const handleUpdateCharacters = (profileIndex, nextItems) => {
-    setProfiles((prev) => prev.map((p, i) => (i === profileIndex ? { ...p, characters: nextItems } : p)));
+  const handleUpdateCharacters = (profileId, nextItems) => {
+    setProfiles((prev) => prev.map((p) => (p.id === profileId ? { ...p, characters: nextItems } : p)));
   };
 
-  const handleDeleteProfile = (indexToRemove) => {
-    setProfiles((prev) => prev.filter((_, index) => index !== indexToRemove));
+  const handleDeleteProfile = (profileId) => {
+    setProfiles((prev) => prev.filter((p) => p.id !== profileId));
   };
 
   return (
     <Flex direction="column" gap="lg" fullWidth alignItems="center">
-      {profiles.map((profile, index) => (
-        <Card key={`${profile.crew_name || 'crew'}-${index}`} padding="none" fullWidth noBorder>
+      {profiles.map((profile) => (
+        <Card key={profile.id} padding="none" fullWidth noBorder>
           <Collapsible>
             <Collapsible.Header>
               <Heading color="highlight" size={3}>
@@ -67,16 +73,16 @@ export default function ProfileSelection() {
             </Collapsible.Header>
             <Collapsible.Body>
               <Flex marginBottom="md">
-                <Button icon="dice" onClick={() => navigate(`/gm/${index}`)}>GM View</Button>
-                <Button variant="tertiary" marginLeft="auto" onClick={() => handleDeleteProfile(index)}>
+                <Button icon="dice" onClick={() => navigate(`/gm/${profile.id}`)}>GM View</Button>
+                <Button variant="tertiary" marginLeft="auto" onClick={() => handleDeleteProfile(profile.id)}>
                   Delete Crew
                 </Button>
               </Flex>
               <Card noBorder padding="none" backgroundColor="darker">
                 <PlayerCharacterRepeater
-                  profileName={profile.crew_name}
+                  profileId={profile.id}
                   initialItems={profile.characters || []}
-                  onPersist={(nextItems) => handleUpdateCharacters(index, nextItems)}
+                  onPersist={(nextItems) => handleUpdateCharacters(profile.id, nextItems)}
                 />
               </Card>
             </Collapsible.Body>

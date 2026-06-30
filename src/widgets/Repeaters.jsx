@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Flex, Body, Caption, TextInput, Select, Button, IconButton } from '../components';
 
-export default function PlayerCharacterRepeater({ initialItems = [], onPersist, profileName }) {
+export default function PlayerCharacterRepeater({ initialItems = [], onPersist, profileId }) {
   const [items, setItems] = useState(initialItems || []);
   const [isCreating, setIsCreating] = useState(false);
   const [formValue, setFormValue] = useState({ name: '', playbook: '' });
@@ -15,7 +15,7 @@ export default function PlayerCharacterRepeater({ initialItems = [], onPersist, 
       const raw = localStorage.getItem('profiles');
       if (raw) {
         const arr = JSON.parse(raw);
-        const idx = arr.findIndex((p) => p.crew_name === profileName);
+        const idx = arr.findIndex((p) => p.id === profileId);
         if (idx > -1) {
           arr[idx].characters = items;
           localStorage.setItem('profiles', JSON.stringify(arr));

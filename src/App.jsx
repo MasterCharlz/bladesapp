@@ -12,7 +12,7 @@ export default function App() {
           <img src="../src/images/bitd-logo.svg"/>
           <Routes>
             <Route path="/" element={<ProfileSelection />} />
-            <Route path="/gm/:index" element={<GMView />} />
+            <Route path="/gm/:id" element={<GMView />} />
           </Routes>
         </Flex>
       </div>

@@ -3,9 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Flex, Heading, Card, Button, Body, Caption } from './components';
 
 export default function GMView() {
-  const { index } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const idx = parseInt(index, 10);
 
   const profilesRaw = (() => {
     try {
@@ -15,7 +14,7 @@ export default function GMView() {
     }
   })();
 
-  const profile = profilesRaw[idx];
+  const profile = profilesRaw.find((p) => String(p.id) === String(id));
 
   if (!profile) {
     return (

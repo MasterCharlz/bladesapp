@@ -345,6 +345,7 @@ export function Grid({ columns, rows, gap, columnGap, rowGap, areas, autoFlow, a
 export function Repeater({
   items: controlledItems,
   onChange,
+  onMutate,
   addButtonText = 'Item',
   addIcon = 'plus',
   formRenderer,
@@ -361,9 +362,15 @@ export function Repeater({
   function emit(nextItems) {
     if (onChange) {
       onChange(nextItems);
+      // also update internalItems so UI reflects new items immediately
+      setInternalItems(nextItems);
     } else {
       setInternalItems(nextItems);
     }
+    // always notify onMutate (useful for persistence hooks)
+    try {
+      onMutate?.(nextItems);
+    } catch (e) {}
   }
 
   function handleSave(newValues) {

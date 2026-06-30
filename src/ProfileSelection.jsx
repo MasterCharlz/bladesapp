@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button, Flex, TextInput, Select, Collapsible, Heading } from './components';
 import PlayerCharacterRepeater from './widgets/Repeaters';
+import profilesData from './profiles.json';
 
 export default function ProfileSelection() {
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [profiles, setProfiles] = useState([]);
+  const [profiles, setProfiles] = useState(() => {
+    try {
+      const raw = localStorage.getItem('profiles');
+      if (raw) return JSON.parse(raw);
+      return profilesData.profiles || [];
+    } catch (e) {
+      return profilesData.profiles || [];
+    }
+  });
   const [newProfile, setNewProfile] = useState({ crew_name: '', crew_type: '' });
 
   const handleCancelCreate = () => {
@@ -19,11 +28,24 @@ export default function ProfileSelection() {
       crew_name: newProfile.crew_name.trim(),
       crew_type: newProfile.crew_type,
       subprofiles: [{ subprofile_type: 'gm' }],
+      characters: [],
     };
 
     setProfiles((prev) => [...prev, createdProfile]);
     setNewProfile({ crew_name: '', crew_type: '' });
     setShowCreateForm(false);
+  };
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('profiles', JSON.stringify(profiles));
+    } catch (e) {
+      // ignore quota errors
+    }
+  }, [profiles]);
+
+  const handleUpdateCharacters = (profileIndex, nextItems) => {
+    setProfiles((prev) => prev.map((p, i) => (i === profileIndex ? { ...p, characters: nextItems } : p)));
   };
 
   const handleDeleteProfile = (indexToRemove) => {
@@ -48,7 +70,11 @@ export default function ProfileSelection() {
                 </Button>
               </Flex>
               <Card noBorder padding="none" backgroundColor="darker">
-                <PlayerCharacterRepeater />
+                <PlayerCharacterRepeater
+                  profileName={profile.crew_name}
+                  initialItems={profile.characters || []}
+                  onPersist={(nextItems) => handleUpdateCharacters(index, nextItems)}
+                />
               </Card>
             </Collapsible.Body>
           </Collapsible>

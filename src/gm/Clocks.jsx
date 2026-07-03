@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Flex,
 	Banner,
@@ -19,7 +19,8 @@ const CLOCK_TYPES = [
 ];
 
 const SLICES = [3, 4, 6, 12];
-const PLAYER_OPTIONS = ["All", "Placeholder here"];
+
+const getClockStorageKey = (profileId) => `gm-clocks-${profileId}`;
 
 const createClockRow = () => ({
 	id: crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`,
@@ -34,8 +35,34 @@ const createClockRow = () => ({
 const getClockIcon = (type) =>
 	CLOCK_TYPES.find((option) => option.id === type)?.icon || "flag-checkered";
 
-export default function Clocks() {
-	const [rows, setRows] = useState([]);
+export default function Clocks({ playerCharacters = [], profileId }) {
+	const loadRows = () => {
+		if (!profileId) return [];
+		try {
+			const raw = localStorage.getItem(getClockStorageKey(profileId));
+			const parsed = raw ? JSON.parse(raw) : [];
+			return Array.isArray(parsed) ? parsed : [];
+		} catch (e) {
+			return [];
+		}
+	};
+
+	const [rows, setRows] = useState(loadRows);
+	const playerOptions = [
+		"All",
+		...playerCharacters
+			.map((character) => character?.value?.name)
+			.filter(Boolean),
+	];
+
+	useEffect(() => {
+		if (!profileId) return;
+		try {
+			localStorage.setItem(getClockStorageKey(profileId), JSON.stringify(rows));
+		} catch (e) {
+			// ignore storage failures
+		}
+	}, [profileId, rows]);
 
 	const addClockRow = () => {
 		setRows((prev) => [...prev, createClockRow()]);
@@ -132,7 +159,7 @@ export default function Clocks() {
 									<Select
 										value={row.player}
 										onChange={(player) => updateRow(row.id, { player })}
-										options={PLAYER_OPTIONS}
+										options={playerOptions}
 										placeholder="Select Player..."
 									/>
 								</Flex>

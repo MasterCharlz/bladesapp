@@ -48,7 +48,10 @@ export default function GMView() {
 					Crew Name long long long
 				</Heading>
 			</Flex>
-			<Clocks />
+			<Clocks
+				profileId={profile.id}
+				playerCharacters={profile.characters || []}
+			/>
 			{/* Also make sure you pass onChange if you want the buttons to do anything. 
                 The Nav component only calls onChange?.(item.id) when a button is clicked. */}
 			<Nav

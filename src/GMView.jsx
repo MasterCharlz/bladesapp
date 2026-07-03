@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Flex, Heading, Card, Button, Body, Caption, Nav } from "./components";
 import Clocks from "./gm/Clocks";
+import CrewManagement from "./gm/CrewManagement";
 
 export default function GMView() {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const [activePage, setActivePage] = useState("clock-management");
 
 	const profilesRaw = (() => {
 		try {
@@ -48,20 +50,23 @@ export default function GMView() {
 					Crew Name long long long
 				</Heading>
 			</Flex>
-			<Clocks
-				profileId={profile.id}
-				playerCharacters={profile.characters || []}
-			/>
-			{/* Also make sure you pass onChange if you want the buttons to do anything. 
-                The Nav component only calls onChange?.(item.id) when a button is clicked. */}
 			<Nav
 				marginTop="sm"
-				activeId="clock-management"
+				activeId={activePage}
+				onChange={setActivePage}
 				items={[
 					{ id: "clock-management", icon: "stopwatch" },
 					{ id: "crew-management", icon: "people-group" },
 				]}
 			/>
+			{activePage === "clock-management" ? (
+				<Clocks
+					profileId={profile.id}
+					playerCharacters={profile.characters || []}
+				/>
+			) : (
+				<CrewManagement profile={profile} />
+			)}
 		</>
 	);
 }

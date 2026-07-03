@@ -8,13 +8,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="app-shell">
-        <Flex justifyContent="center" alignItems="center" fullHeight direction="column" gap="lg">
-          <img src="../src/images/bitd-logo.svg"/>
-          <Routes>
+        <Routes>
             <Route path="/" element={<ProfileSelection />} />
             <Route path="/gm/:id" element={<GMView />} />
           </Routes>
-        </Flex>
       </div>
     </BrowserRouter>
   );

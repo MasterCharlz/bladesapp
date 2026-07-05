@@ -1,0 +1,850 @@
+{
+	"crew_type": {
+		"Assassins": [
+			{
+				"value": "assassin_rigging",
+				"type": "Assassin",
+				"description": "Assassin Rigging (2 free load of documents or implements)",
+				"pips": 1
+			},
+			{
+				"value": "ironhook_contacts",
+				"type": "Assassin",
+				"description": "Ironhook Contacts (+1 tier in prison)",
+				"pips": 1
+			},
+			{
+				"value": "elite_skulks",
+				"type": "Assassin",
+				"description": "Elite Skulks",
+				"pips": 1
+			},
+			{
+				"value": "elite_skulks",
+				"type": "Assassin",
+				"description": "Elite Skulks",
+				"pips": 1
+			},
+			{
+				"value": "elite_thugs",
+				"type": "Assassin",
+				"description": "Elite Thugs",
+				"pips": 1
+			},
+			{
+				"value": "hardened",
+				"type": "Assassin",
+				"description": "Hardened (+1 trauma box)",
+				"pips": 3
+			},
+			{
+				"value": "hardened",
+				"type": "Assassin",
+				"description": "Hardened (+1 trauma box)",
+				"pips": 3
+			},
+			{
+				"value": "carriage",
+				"type": "Lair",
+				"description": "Carriage",
+				"pips": 2
+			},
+			{
+				"value": "boat",
+				"type": "Lair",
+				"description": "Boat",
+				"pips": 2
+			},
+			{
+				"value": "hidden",
+				"type": "Lair",
+				"description": "Hidden",
+				"pips": 1
+			},
+			{
+				"value": "quarters",
+				"type": "Lair",
+				"description": "Quarters",
+				"pips": 1
+			},
+			{
+				"value": "secure",
+				"type": "Lair",
+				"description": "Secure",
+				"pips": 2
+			},
+			{
+				"value": "vault",
+				"type": "Lair",
+				"description": "Vault",
+				"pips": 2
+			},
+			{
+				"value": "workshop",
+				"type": "Lair",
+				"description": "Workshop",
+				"pips": 1
+			},
+			{
+				"value": "documents",
+				"type": "Quality",
+				"description": "Documents",
+				"pips": 1
+			},
+			{
+				"value": "gear",
+				"type": "Quality",
+				"description": "Gear",
+				"pips": 1
+			},
+			{
+				"value": "implements",
+				"type": "Quality",
+				"description": "Implements",
+				"pips": 1
+			},
+			{
+				"value": "supplies",
+				"type": "Quality",
+				"description": "Supplies",
+				"pips": 1
+			},
+			{
+				"value": "tools",
+				"type": "Quality",
+				"description": "Tools",
+				"pips": 1
+			},
+			{
+				"value": "weapons",
+				"type": "Quality",
+				"description": "Weapons",
+				"pips": 1
+			},
+			{
+				"value": "insight",
+				"type": "Training",
+				"description": "Insight",
+				"pips": 1
+			},
+			{
+				"value": "prowess",
+				"type": "Training",
+				"description": "Prowess",
+				"pips": 1
+			},
+			{
+				"value": "resolve",
+				"type": "Training",
+				"description": "Resolve",
+				"pips": 1
+			},
+			{
+				"value": "personal",
+				"type": "Training",
+				"description": "Personal",
+				"pips": 1
+			},
+			{
+				"value": "mastery",
+				"type": "Training",
+				"description": "Mastery",
+				"pips": 4
+			}
+		],
+		"Bravos": [
+			{
+				"value": "bravos_rigging",
+				"type": "Bravos",
+				"description": "Bravos Rigging (2 free load of documents or implements)",
+				"pips": 1
+			},
+			{
+				"value": "ironhook_contacts",
+				"type": "Bravos",
+				"description": "Ironhook Contacts (+1 tier in prison)",
+				"pips": 1
+			},
+			{
+				"value": "elite_rovers",
+				"type": "Bravos",
+				"description": "Elite Thugs",
+				"pips": 1
+			},
+			{
+				"value": "elite_thugs",
+				"type": "Assassin",
+				"description": "Elite Thugs",
+				"pips": 1
+			},
+			{
+				"value": "hardened",
+				"type": "Assassin",
+				"description": "Hardened (+1 trauma box)",
+				"pips": 3
+			},
+			{
+				"value": "carriage",
+				"type": "Lair",
+				"description": "Carriage",
+				"pips": 2
+			},
+			{
+				"value": "boat",
+				"type": "Lair",
+				"description": "Boat",
+				"pips": 2
+			},
+			{
+				"value": "hidden",
+				"type": "Lair",
+				"description": "Hidden",
+				"pips": 1
+			},
+			{
+				"value": "quarters",
+				"type": "Lair",
+				"description": "Quarters",
+				"pips": 1
+			},
+			{
+				"value": "secure",
+				"type": "Lair",
+				"description": "Secure",
+				"pips": 2
+			},
+			{
+				"value": "vault",
+				"type": "Lair",
+				"description": "Vault",
+				"pips": 2
+			},
+			{
+				"value": "workshop",
+				"type": "Lair",
+				"description": "Workshop",
+				"pips": 1
+			},
+			{
+				"value": "documents",
+				"type": "Quality",
+				"description": "Documents",
+				"pips": 1
+			},
+			{
+				"value": "gear",
+				"type": "Quality",
+				"description": "Gear",
+				"pips": 1
+			},
+			{
+				"value": "implements",
+				"type": "Quality",
+				"description": "Implements",
+				"pips": 1
+			},
+			{
+				"value": "supplies",
+				"type": "Quality",
+				"description": "Supplies",
+				"pips": 1
+			},
+			{
+				"value": "tools",
+				"type": "Quality",
+				"description": "Tools",
+				"pips": 1
+			},
+			{
+				"value": "weapons",
+				"type": "Quality",
+				"description": "Weapons",
+				"pips": 1
+			},
+			{
+				"value": "insight",
+				"type": "Training",
+				"description": "Insight",
+				"pips": 1
+			},
+			{
+				"value": "prowess",
+				"type": "Training",
+				"description": "Prowess",
+				"pips": 1
+			},
+			{
+				"value": "resolve",
+				"type": "Training",
+				"description": "Resolve",
+				"pips": 1
+			},
+			{
+				"value": "personal",
+				"type": "Training",
+				"description": "Personal",
+				"pips": 1
+			},
+			{
+				"value": "mastery",
+				"type": "Training",
+				"description": "Mastery",
+				"pips": 4
+			}
+		],
+		"Cult": [
+			{
+				"value": "cult_rigging",
+				"type": "Cult",
+				"description": "Cult Rigging (2 free load of documents or implements)",
+				"pips": 1
+			},
+			{
+				"value": "ritual_sanctum",
+				"type": "Cult",
+				"description": "Ritual sanctum in lair",
+				"pips": 1
+			},
+			{
+				"value": "elite_adepts",
+				"type": "Cult",
+				"description": "Elite Adepts",
+				"pips": 1
+			},
+			{
+				"value": "elite_thugs",
+				"type": "Assassin",
+				"description": "Elite Thugs",
+				"pips": 1
+			},
+			{
+				"value": "ordained",
+				"type": "Cult",
+				"description": "Ordained (+1 trauma box)",
+				"pips": 3
+			},
+			{
+				"value": "carriage",
+				"type": "Lair",
+				"description": "Carriage",
+				"pips": 2
+			},
+			{
+				"value": "boat",
+				"type": "Lair",
+				"description": "Boat",
+				"pips": 2
+			},
+			{
+				"value": "hidden",
+				"type": "Lair",
+				"description": "Hidden",
+				"pips": 1
+			},
+			{
+				"value": "quarters",
+				"type": "Lair",
+				"description": "Quarters",
+				"pips": 1
+			},
+			{
+				"value": "secure",
+				"type": "Lair",
+				"description": "Secure",
+				"pips": 2
+			},
+			{
+				"value": "vault",
+				"type": "Lair",
+				"description": "Vault",
+				"pips": 2
+			},
+			{
+				"value": "workshop",
+				"type": "Lair",
+				"description": "Workshop",
+				"pips": 1
+			},
+			{
+				"value": "documents",
+				"type": "Quality",
+				"description": "Documents",
+				"pips": 1
+			},
+			{
+				"value": "gear",
+				"type": "Quality",
+				"description": "Gear",
+				"pips": 1
+			},
+			{
+				"value": "implements",
+				"type": "Quality",
+				"description": "Implements",
+				"pips": 1
+			},
+			{
+				"value": "supplies",
+				"type": "Quality",
+				"description": "Supplies",
+				"pips": 1
+			},
+			{
+				"value": "tools",
+				"type": "Quality",
+				"description": "Tools",
+				"pips": 1
+			},
+			{
+				"value": "weapons",
+				"type": "Quality",
+				"description": "Weapons",
+				"pips": 1
+			},
+			{
+				"value": "insight",
+				"type": "Training",
+				"description": "Insight",
+				"pips": 1
+			},
+			{
+				"value": "prowess",
+				"type": "Training",
+				"description": "Prowess",
+				"pips": 1
+			},
+			{
+				"value": "resolve",
+				"type": "Training",
+				"description": "Resolve",
+				"pips": 1
+			},
+			{
+				"value": "personal",
+				"type": "Training",
+				"description": "Personal",
+				"pips": 1
+			},
+			{
+				"value": "mastery",
+				"type": "Training",
+				"description": "Mastery",
+				"pips": 4
+			}
+		],
+		"Hawkers": [
+			{
+				"value": "hawkers_rigging",
+				"type": "Hawkers",
+				"description": "Hawkers Rigging (1 carried item is concealed and has no load)",
+				"pips": 1
+			},
+			{
+				"value": "ironhook_contacts",
+				"type": "Hawkers",
+				"description": "Ironhook Contacts (+1 tier in prison)",
+				"pips": 1
+			},
+			{
+				"value": "elite_rooks",
+				"type": "Hawkers",
+				"description": "Elite Rooks",
+				"pips": 1
+			},
+			{
+				"value": "elite_thugs",
+				"type": "Hawkers",
+				"description": "Elite Thugs",
+				"pips": 1
+			},
+			{
+				"value": "composed",
+				"type": "Hawkers",
+				"description": "Composed (+1 stress box)",
+				"pips": 3
+			},
+			{
+				"value": "carriage",
+				"type": "Lair",
+				"description": "Carriage",
+				"pips": 2
+			},
+			{
+				"value": "boat",
+				"type": "Lair",
+				"description": "Boat",
+				"pips": 2
+			},
+			{
+				"value": "hidden",
+				"type": "Lair",
+				"description": "Hidden",
+				"pips": 1
+			},
+			{
+				"value": "quarters",
+				"type": "Lair",
+				"description": "Quarters",
+				"pips": 1
+			},
+			{
+				"value": "secure",
+				"type": "Lair",
+				"description": "Secure",
+				"pips": 2
+			},
+			{
+				"value": "vault",
+				"type": "Lair",
+				"description": "Vault",
+				"pips": 2
+			},
+			{
+				"value": "workshop",
+				"type": "Lair",
+				"description": "Workshop",
+				"pips": 1
+			},
+			{
+				"value": "documents",
+				"type": "Quality",
+				"description": "Documents",
+				"pips": 1
+			},
+			{
+				"value": "gear",
+				"type": "Quality",
+				"description": "Gear",
+				"pips": 1
+			},
+			{
+				"value": "implements",
+				"type": "Quality",
+				"description": "Implements",
+				"pips": 1
+			},
+			{
+				"value": "supplies",
+				"type": "Quality",
+				"description": "Supplies",
+				"pips": 1
+			},
+			{
+				"value": "tools",
+				"type": "Quality",
+				"description": "Tools",
+				"pips": 1
+			},
+			{
+				"value": "weapons",
+				"type": "Quality",
+				"description": "Weapons",
+				"pips": 1
+			},
+			{
+				"value": "insight",
+				"type": "Training",
+				"description": "Insight",
+				"pips": 1
+			},
+			{
+				"value": "prowess",
+				"type": "Training",
+				"description": "Prowess",
+				"pips": 1
+			},
+			{
+				"value": "resolve",
+				"type": "Training",
+				"description": "Resolve",
+				"pips": 1
+			},
+			{
+				"value": "personal",
+				"type": "Training",
+				"description": "Personal",
+				"pips": 1
+			},
+			{
+				"value": "mastery",
+				"type": "Training",
+				"description": "Mastery",
+				"pips": 4
+			}
+		],
+		"Smugglers": [
+			{
+				"value": "smugglers_rigging",
+				"type": "Smugglers",
+				"description": "Smuggler's Rigging (2 items carried are perfectly concealed)",
+				"pips": 1
+			},
+			{
+				"value": "comouflage",
+				"type": "Smugglers",
+				"description": "Camouflage (vehicles are perfectly concealed at rest)",
+				"pips": 1
+			},
+			{
+				"value": "elite_rovers",
+				"type": "Smugglers",
+				"description": "Elite Rovers",
+				"pips": 1
+			},
+			{
+				"value": "barge",
+				"type": "Smugglers",
+				"description": "Barge (+1 mobility for lair)",
+				"pips": 1
+			},
+			{
+				"value": "steady",
+				"type": "Smugglers",
+				"description": "Steady (+1 stress box)",
+				"pips": 3
+			},
+			{
+				"value": "vehicle",
+				"type": "Lair",
+				"description": "Vehicle",
+				"pips": 2
+			},
+			{
+				"value": "hidden",
+				"type": "Lair",
+				"description": "Hidden",
+				"pips": 1
+			},
+			{
+				"value": "quarters",
+				"type": "Lair",
+				"description": "Quarters",
+				"pips": 1
+			},
+			{
+				"value": "secure",
+				"type": "Lair",
+				"description": "Secure",
+				"pips": 2
+			},
+			{
+				"value": "vault",
+				"type": "Lair",
+				"description": "Vault",
+				"pips": 2
+			},
+			{
+				"value": "workshop",
+				"type": "Lair",
+				"description": "Workshop",
+				"pips": 1
+			},
+			{
+				"value": "documents",
+				"type": "Quality",
+				"description": "Documents",
+				"pips": 1
+			},
+			{
+				"value": "gear",
+				"type": "Quality",
+				"description": "Gear",
+				"pips": 1
+			},
+			{
+				"value": "implements",
+				"type": "Quality",
+				"description": "Implements",
+				"pips": 1
+			},
+			{
+				"value": "supplies",
+				"type": "Quality",
+				"description": "Supplies",
+				"pips": 1
+			},
+			{
+				"value": "tools",
+				"type": "Quality",
+				"description": "Tools",
+				"pips": 1
+			},
+			{
+				"value": "weapons",
+				"type": "Quality",
+				"description": "Weapons",
+				"pips": 1
+			},
+			{
+				"value": "insight",
+				"type": "Training",
+				"description": "Insight",
+				"pips": 1
+			},
+			{
+				"value": "prowess",
+				"type": "Training",
+				"description": "Prowess",
+				"pips": 1
+			},
+			{
+				"value": "resolve",
+				"type": "Training",
+				"description": "Resolve",
+				"pips": 1
+			},
+			{
+				"value": "personal",
+				"type": "Training",
+				"description": "Personal",
+				"pips": 1
+			},
+			{
+				"value": "mastery",
+				"type": "Training",
+				"description": "Mastery",
+				"pips": 4
+			}
+		],
+		"Shadows": [
+			{
+				"value": "thief_rigging",
+				"type": "Shadows",
+				"description": "Thief Rigging (2 free load of tools or gear)",
+				"pips": 1
+			},
+			{
+				"value": "underground_maps_passkeys",
+				"type": "Shadows",
+				"description": "Underground maps & passkeys",
+				"pips": 1
+			},
+			{
+				"value": "elite_rooks",
+				"type": "Shadows",
+				"description": "Elite Rooks",
+				"pips": 1
+			},
+			{
+				"value": "elite_skulks",
+				"type": "Shadows",
+				"description": "Elite Skulks",
+				"pips": 1
+			},
+			{
+				"value": "steady",
+				"type": "Shadows",
+				"description": "Steady (+1 stress box)",
+				"pips": 3
+			},
+			{
+				"value": "carriage",
+				"type": "Lair",
+				"description": "Carriage",
+				"pips": 2
+			},
+			{
+				"value": "boat",
+				"type": "Lair",
+				"description": "Boat",
+				"pips": 2
+			},
+			{
+				"value": "hidden",
+				"type": "Lair",
+				"description": "Hidden",
+				"pips": 1
+			},
+			{
+				"value": "quarters",
+				"type": "Lair",
+				"description": "Quarters",
+				"pips": 1
+			},
+			{
+				"value": "secure",
+				"type": "Lair",
+				"description": "Secure",
+				"pips": 2
+			},
+			{
+				"value": "vault",
+				"type": "Lair",
+				"description": "Vault",
+				"pips": 2
+			},
+			{
+				"value": "workshop",
+				"type": "Lair",
+				"description": "Workshop",
+				"pips": 1
+			},
+			{
+				"value": "documents",
+				"type": "Quality",
+				"description": "Documents",
+				"pips": 1
+			},
+			{
+				"value": "gear",
+				"type": "Quality",
+				"description": "Gear",
+				"pips": 1
+			},
+			{
+				"value": "implements",
+				"type": "Quality",
+				"description": "Implements",
+				"pips": 1
+			},
+			{
+				"value": "supplies",
+				"type": "Quality",
+				"description": "Supplies",
+				"pips": 1
+			},
+			{
+				"value": "tools",
+				"type": "Quality",
+				"description": "Tools",
+				"pips": 1
+			},
+			{
+				"value": "weapons",
+				"type": "Quality",
+				"description": "Weapons",
+				"pips": 1
+			},
+			{
+				"value": "insight",
+				"type": "Training",
+				"description": "Insight",
+				"pips": 1
+			},
+			{
+				"value": "prowess",
+				"type": "Training",
+				"description": "Prowess",
+				"pips": 1
+			},
+			{
+				"value": "resolve",
+				"type": "Training",
+				"description": "Resolve",
+				"pips": 1
+			},
+			{
+				"value": "personal",
+				"type": "Training",
+				"description": "Personal",
+				"pips": 1
+			},
+			{
+				"value": "mastery",
+				"type": "Training",
+				"description": "Mastery",
+				"pips": 4
+			}
+		]
+	}
+}

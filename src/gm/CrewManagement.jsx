@@ -21,7 +21,7 @@ export default function CrewManagement({ profile }) {
 			/>
 
 			{activeSubPage === "heat" && <HeatPage />}
-			{activeSubPage === "abilities" && <AbilitiesPage />}
+			{activeSubPage === "abilities" && <AbilitiesPage profile={profile} />}
 			{activeSubPage === "contacts" && <ContactsPage profile={profile} />}
 		</>
 	);

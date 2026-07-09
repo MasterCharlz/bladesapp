@@ -389,3 +389,36 @@ svg {
 .grid {
 	display: grid;
 }
+
+.lair-grid {
+	justify-items: center;
+	align-items: center;
+	grid-template-columns: 100px 25px 100px 25px 100px !important;
+	grid-template-rows: 100px 25px 100px 25px 100px !important;
+}
+.lair-node {
+	width: 100px;
+	height: 100px;
+	background: var(--lightest);
+	border-radius: 4px;
+}
+.lair-node .heading {
+	color: var(--highlight);
+	font-size: 16px;
+}
+.lair-node .caption {
+	font-size: 12px;
+}
+
+.lair-node--active {
+	background: var(--highlight);
+}
+.lair-node--active .heading,
+.lair-node--active .caption {
+	color: var(--dark);
+}
+.lair-connector {
+	width: 25px;
+	height: 25px;
+	background: var(--lightest);
+}

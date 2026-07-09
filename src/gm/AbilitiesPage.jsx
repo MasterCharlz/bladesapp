@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
 	Flex,
 	Card,
@@ -68,6 +69,7 @@ function UpgradeItem({ value, upgradeLookup, onDelete, onUpdate }) {
 }
 
 export default function AbilitiesPage({ profile }) {
+	const navigate = useNavigate();
 	const {
 		items: abilityItems,
 		handleChange: handleAbilityChange,
@@ -316,7 +318,12 @@ export default function AbilitiesPage({ profile }) {
 						<Icon icon="chess-rook" /> Lair Bonuses
 					</Body>
 					<Card backgroundColor="darker" noBorder padding="none">
-						<Button icon="magnifying-glass" variant="tertiary" fullWidth>
+						<Button
+							icon="magnifying-glass"
+							variant="tertiary"
+							fullWidth
+							onClick={() => navigate(`/gm/${profile?.id}/lair-map`)}
+						>
 							View Map
 						</Button>
 					</Card>

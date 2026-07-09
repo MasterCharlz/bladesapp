@@ -632,6 +632,170 @@ export function Grid({
 	);
 }
 
+export function LairConnector({
+	orientation = "horizontal",
+	className = "",
+	style = {},
+}) {
+	return (
+		<div
+			className={`lair-connector lair-connector--${orientation} ${className}`}
+			style={style}
+		/>
+	);
+}
+
+export function LairNode({
+	id,
+	position,
+	title,
+	description,
+	active: initialActive = false,
+	onClick,
+	onChange,
+	className = "",
+	style = {},
+	children,
+}) {
+	const [active, setActive] = useState(initialActive);
+
+	function handleClick(event) {
+		const nextActive = !active;
+		setActive(nextActive);
+		onChange?.(nextActive);
+		onClick?.(event);
+	}
+
+	return (
+		<button
+			type="button"
+			data-id={id}
+			data-position={position}
+			data-active={active}
+			title={description || title}
+			className={`lair-node ${active ? "lair-node--active" : "lair-node--inactive"} ${className}`}
+			style={style}
+			onClick={handleClick}
+			aria-pressed={active}
+		>
+			{children || title}
+		</button>
+	);
+}
+
+export function LairGrid({
+	nodes = [],
+	children,
+	className = "",
+	style = {},
+	...spacingProps
+}) {
+	const rows = 5;
+	const columns = 3;
+	const totalNodes = rows * columns;
+	const childNodes = React.Children.toArray(children);
+	const sourceNodes = childNodes.length ? childNodes : nodes;
+	const positionedNodes = Array.from({ length: totalNodes }, () => null);
+
+	sourceNodes.forEach((node, index) => {
+		if (!node) return;
+		const position = Number(node.props?.position ?? node.position ?? index + 1);
+		if (position >= 1 && position <= totalNodes) {
+			positionedNodes[position - 1] = node;
+		}
+	});
+	const gridColumns = `repeat(${columns * 2 - 1}, 1fr)`;
+	const gridRows = `repeat(${rows * 2 - 1}, auto)`;
+
+	function renderCell(rowIndex, columnIndex) {
+		const isNodeRow = rowIndex % 2 === 0;
+		const isNodeColumn = columnIndex % 2 === 0;
+
+		if (isNodeRow && isNodeColumn) {
+			const nodeRow = rowIndex / 2;
+			const nodeColumn = columnIndex / 2;
+			const nodeIndex = nodeRow * columns + nodeColumn;
+			const node = positionedNodes[nodeIndex];
+
+			if (React.isValidElement(node)) {
+				return React.cloneElement(node, {
+					key: `node-${rowIndex}-${columnIndex}`,
+					position: node.props?.position ?? nodeIndex + 1,
+				});
+			}
+
+			if (node) {
+				return (
+					<LairNode
+						key={`node-${rowIndex}-${columnIndex}`}
+						id={node.id}
+						position={node.position ?? nodeIndex + 1}
+						title={node.title}
+						description={node.description}
+					>
+						{node.title}
+					</LairNode>
+				);
+			}
+
+			return (
+				<LairNode
+					key={`node-${rowIndex}-${columnIndex}`}
+					position={nodeIndex + 1}
+					title={node?.title}
+					description={node?.description}
+				>
+					{node?.title}
+				</LairNode>
+			);
+		}
+
+		if (isNodeRow && !isNodeColumn) {
+			return (
+				<LairConnector
+					key={`connector-h-${rowIndex}-${columnIndex}`}
+					orientation="horizontal"
+				/>
+			);
+		}
+
+		if (!isNodeRow && isNodeColumn) {
+			return (
+				<LairConnector
+					key={`connector-v-${rowIndex}-${columnIndex}`}
+					orientation="vertical"
+				/>
+			);
+		}
+
+		return (
+			<div
+				key={`empty-${rowIndex}-${columnIndex}`}
+				className="lair-grid__spacer"
+			/>
+		);
+	}
+
+	return (
+		<Grid
+			columns={gridColumns}
+			rows={gridRows}
+			className={`lair-grid ${className}`}
+			style={{
+				...layoutStyle(spacingProps),
+				...spacingStyle(spacingProps),
+				...style,
+			}}
+		>
+			{Array.from({ length: rows * 2 - 1 }, (_, rowIndex) =>
+				Array.from({ length: columns * 2 - 1 }, (_, columnIndex) =>
+					renderCell(rowIndex, columnIndex),
+				),
+			)}
+		</Grid>
+	);
+}
+
 export function Repeater({
 	items: controlledItems,
 	onChange,

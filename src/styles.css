@@ -187,6 +187,17 @@ svg {
 	border: none;
 }
 
+.pip {
+	width: 12px;
+	height: 12px;
+	background-color: var(--lightest);
+	border-radius: 100%;
+	cursor: pointer;
+}
+.pip--active {
+	background-color: var(--highlight);
+}
+
 .collapsible__header {
 	display: flex;
 	align-items: center;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
 	Flex,
 	Banner,
@@ -11,101 +11,28 @@ import {
 	IconButton,
 	Stepper,
 } from "../components";
-
-const CLOCK_TYPES = [
-	{ id: "race", icon: "flag-checkered" },
-	{ id: "contested", icon: "scale-unbalanced" },
-	{ id: "danger", icon: "skull-crossbones" },
-];
-
-const SLICES = [3, 4, 6, 12];
-
-const getClockStorageKey = (profileId) => `gm-clocks-${profileId}`;
-
-const createClockRow = () => ({
-	id: crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`,
-	name: "",
-	type: "race",
-	slices: 3,
-	player: "All",
-	progress: 0,
-	editing: true,
-});
-
-const getClockIcon = (type) =>
-	CLOCK_TYPES.find((option) => option.id === type)?.icon || "flag-checkered";
+import {
+	useClocksRepeater,
+	CLOCK_TYPES,
+	CLOCK_SLICES,
+	getClockIcon,
+} from "../widgets/Repeaters";
 
 export default function Clocks({ playerCharacters = [], profileId }) {
-	const loadRows = () => {
-		if (!profileId) return [];
-		try {
-			const raw = localStorage.getItem(getClockStorageKey(profileId));
-			const parsed = raw ? JSON.parse(raw) : [];
-			return Array.isArray(parsed) ? parsed : [];
-		} catch (e) {
-			return [];
-		}
-	};
-
-	const [rows, setRows] = useState(loadRows);
-	const playerOptions = [
-		"All",
-		...playerCharacters
-			.map((character) => character?.value?.name)
-			.filter(Boolean),
-	];
-
-	useEffect(() => {
-		if (!profileId) return;
-		try {
-			localStorage.setItem(getClockStorageKey(profileId), JSON.stringify(rows));
-		} catch (e) {
-			// ignore storage failures
-		}
-	}, [profileId, rows]);
-
-	const addClockRow = () => {
-		setRows((prev) => [...prev, createClockRow()]);
-	};
-
-	const updateRow = (id, changes) => {
-		setRows((prev) =>
-			prev.map((row) => (row.id === id ? { ...row, ...changes } : row)),
-		);
-	};
-
-	const startClock = (id) => {
-		setRows((prev) =>
-			prev.map((row) =>
-				row.id === id && row.name.trim() ? { ...row, editing: false } : row,
-			),
-		);
-	};
-
-	const cancelRow = (id) => {
-		setRows((prev) => prev.filter((row) => row.id !== id));
-	};
-
-	const deleteRow = (id) => {
-		setRows((prev) => prev.filter((row) => row.id !== id));
-	};
-
-	const progressRow = (id, delta) => {
-		setRows((prev) =>
-			prev.map((row) => {
-				if (row.id !== id) return row;
-				const nextProgress = Math.max(
-					0,
-					Math.min(row.slices, row.progress + delta),
-				);
-				return { ...row, progress: nextProgress };
-			}),
-		);
-	};
+	const {
+		rows,
+		playerOptions,
+		addRow,
+		updateRow,
+		startClock,
+		cancelRow,
+		deleteRow,
+		progressRow,
+	} = useClocksRepeater(profileId, playerCharacters);
 
 	return (
 		<>
-			<Flex direction="column" alignItems="center">
+			<Flex direction="column" alignItems="center" paddingBottom="xxl">
 				{rows.map((row) =>
 					row.editing ? (
 						<Banner key={row.id}>
@@ -141,7 +68,7 @@ export default function Clocks({ playerCharacters = [], profileId }) {
 								<Flex direction="column" gap="sm">
 									<Caption>Slices</Caption>
 									<Flex gap="sm">
-										{SLICES.map((slice) => (
+										{CLOCK_SLICES.map((slice) => (
 											<Button
 												key={slice}
 												type="button"
@@ -228,7 +155,7 @@ export default function Clocks({ playerCharacters = [], profileId }) {
 					icon="plus"
 					variant="secondary"
 					margin="lg"
-					onClick={addClockRow}
+					onClick={addRow}
 				>
 					Clock
 				</Button>

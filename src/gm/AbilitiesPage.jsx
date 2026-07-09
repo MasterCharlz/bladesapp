@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
 	Flex,
 	Card,
@@ -7,93 +7,86 @@ import {
 	Button,
 	IconButton,
 	Select,
+	TextInput,
 	Icon,
 	Repeater,
 	Heading,
+	Pip,
 } from "../components";
 import crewAbilitiesData from "./CrewAbilities.json";
+import crewSpecialtiesData from "./CrewSpecialties.json";
+import crewUpgradesData from "./CrewUpgrades.json";
+import {
+	renderBoldText,
+	useAbilitiesRepeater,
+	useHuntingGroundsRepeater,
+	useUpgradesRepeater,
+} from "../widgets/Repeaters";
 
 function renderDescription(text) {
-	if (!text) return null;
+	return renderBoldText(text);
+}
 
-	const parts = [];
-	const segments = String(text).split(/(<\/b>|<b>)/g);
-	let isBold = false;
+function UpgradeItem({ value, upgradeLookup, onDelete, onUpdate }) {
+	const selectedUpgrade = upgradeLookup[value.upgrade];
+	const [activePips, setActivePips] = useState(value.pipStates || {});
 
-	segments.forEach((segment, index) => {
-		if (segment === "<b>") {
-			isBold = true;
-			return;
-		}
+	const togglePip = (index) => {
+		const newPipStates = {
+			...activePips,
+			[index]: !activePips[index],
+		};
+		setActivePips(newPipStates);
+		onUpdate({ ...value, pipStates: newPipStates });
+	};
 
-		if (segment === "</b>") {
-			isBold = false;
-			return;
-		}
-
-		if (segment) {
-			parts.push(
-				isBold ? (
-					<b key={`${segment}-${index}`}>{segment}</b>
-				) : (
-					<span key={`${segment}-${index}`}>{segment}</span>
-				),
-			);
-		}
-	});
-
-	return <>{parts}</>;
+	return (
+		<Flex
+			gap="md"
+			alignItems="flex-start"
+			padding="md"
+			className="repeater__row"
+		>
+			<Flex gap="sm" alignItems="center">
+				{Array.from({ length: selectedUpgrade?.pips || 0 }).map((_, i) => (
+					<Pip
+						key={i}
+						active={activePips[i] || false}
+						onChange={() => togglePip(i)}
+					/>
+				))}
+				<Body>{selectedUpgrade?.description || value.upgrade}</Body>
+			</Flex>
+			<IconButton
+				icon="trash-alt"
+				variant="tertiary"
+				onClick={onDelete}
+				marginLeft="auto"
+			/>
+		</Flex>
+	);
 }
 
 export default function AbilitiesPage({ profile }) {
-	const [abilityItems, setAbilityItems] = useState(profile?.abilities || []);
-	const activeCrewType = useMemo(
-		() => profile?.crew_type || "",
-		[profile?.crew_type],
-	);
+	const {
+		items: abilityItems,
+		handleChange: handleAbilityChange,
+		abilityOptions,
+		abilityLookup,
+	} = useAbilitiesRepeater(profile, crewAbilitiesData);
 
-	const abilityOptions = useMemo(() => {
-		const abilities = crewAbilitiesData.crew_type?.[activeCrewType] || [];
-		return abilities.map(({ value, title }) => ({ value, label: title }));
-	}, [activeCrewType]);
+	const {
+		items: upgradeItems,
+		handleChange: handleUpgradeChange,
+		upgradeOptions,
+		upgradeLookup,
+	} = useUpgradesRepeater(profile, crewUpgradesData);
 
-	const abilityLookup = useMemo(() => {
-		const abilities = crewAbilitiesData.crew_type?.[activeCrewType] || [];
-		return abilities.reduce((acc, ability) => {
-			acc[ability.value] = ability;
-			return acc;
-		}, {});
-	}, [activeCrewType]);
-
-	useEffect(() => {
-		setAbilityItems(profile?.abilities || []);
-	}, [profile?.id, profile?.abilities]);
-
-	function persistAbilityItems(nextItems) {
-		if (!profile?.id) return;
-
-		try {
-			const raw = localStorage.getItem("profiles");
-			if (!raw) return;
-
-			const profiles = JSON.parse(raw);
-			const index = profiles.findIndex(
-				(item) => String(item.id) === String(profile.id),
-			);
-
-			if (index > -1) {
-				profiles[index] = { ...profiles[index], abilities: nextItems };
-				localStorage.setItem("profiles", JSON.stringify(profiles));
-			}
-		} catch (e) {
-			// ignore storage errors
-		}
-	}
-
-	function handleAbilityChange(nextItems) {
-		setAbilityItems(nextItems);
-		persistAbilityItems(nextItems);
-	}
+	const {
+		items: huntingGroundItems,
+		handleChange: handleHuntingGroundChange,
+		specialtyOptions,
+	} = useHuntingGroundsRepeater(profile, crewSpecialtiesData);
 
 	return (
 		<>
@@ -181,7 +174,56 @@ export default function AbilitiesPage({ profile }) {
 					<Body color="highlight">
 						<Icon icon="gears" /> Upgrades
 					</Body>
-					<Card backgroundColor="darker" noBorder></Card>
+					<Card backgroundColor="darker" noBorder padding="none">
+						<Repeater
+							controlledItems={upgradeItems}
+							onChange={handleUpgradeChange}
+							initialItems={profile?.upgrades || []}
+							initialFormValue={{ upgrade: "" }}
+							addButtonText="Upgrade"
+							addIcon="plus"
+							formRenderer={({ value, setValue, onSave, onCancel }) => (
+								<Flex
+									direction="column"
+									gap="sm"
+									padding="md"
+									className="repeater__row"
+								>
+									<Body color="highlight" bold>
+										New Crew Upgrade
+									</Body>
+									<Select
+										value={value.upgrade}
+										onChange={(upgrade) => setValue({ upgrade })}
+										options={upgradeOptions}
+										placeholder="Select an upgrade..."
+									/>
+									<Flex gap="sm" justifyContent="space-between" paddingTop="md">
+										<Button
+											icon="check"
+											onClick={() =>
+												value.upgrade && onSave({ upgrade: value.upgrade })
+											}
+										>
+											Save
+										</Button>
+										<Button variant="tertiary" onClick={onCancel}>
+											Cancel
+										</Button>
+									</Flex>
+								</Flex>
+							)}
+							itemRenderer={({ key, value, onDelete, onUpdate }) => (
+								<UpgradeItem
+									key={key}
+									value={value}
+									upgradeLookup={upgradeLookup}
+									onDelete={onDelete}
+									onUpdate={onUpdate}
+								/>
+							)}
+						/>
+					</Card>
 				</Flex>
 			</Banner>
 
@@ -191,7 +233,79 @@ export default function AbilitiesPage({ profile }) {
 					<Body color="highlight">
 						<Icon icon="map-location-dot" /> Hunting Grounds
 					</Body>
-					<Card backgroundColor="darker" noBorder></Card>
+					<Card backgroundColor="darker" noBorder padding="none">
+						<Repeater
+							controlledItems={huntingGroundItems}
+							onChange={handleHuntingGroundChange}
+							initialItems={profile?.huntingGrounds || []}
+							initialFormValue={{ name: "", specialty: "" }}
+							addButtonText="Hunting Ground"
+							addIcon="plus"
+							formRenderer={({ value, setValue, onSave, onCancel }) => (
+								<Flex
+									direction="column"
+									gap="sm"
+									padding="md"
+									className="repeater__row"
+								>
+									<Body color="highlight" bold>
+										New Hunting Ground
+									</Body>
+									<TextInput
+										value={value.name}
+										onChange={(name) => setValue({ ...value, name })}
+										placeholder="Enter Name"
+									/>
+									<Select
+										value={value.specialty}
+										onChange={(specialty) => setValue({ ...value, specialty })}
+										options={specialtyOptions}
+										placeholder="Select a specialty..."
+									/>
+									<Flex gap="sm" justifyContent="space-between" paddingTop="md">
+										<Button
+											icon="check"
+											onClick={() =>
+												value.name?.trim() &&
+												value.specialty &&
+												onSave({
+													name: value.name.trim(),
+													specialty: value.specialty,
+												})
+											}
+										>
+											Save
+										</Button>
+										<Button variant="tertiary" onClick={onCancel}>
+											Cancel
+										</Button>
+									</Flex>
+								</Flex>
+							)}
+							itemRenderer={({ key, value, onDelete }) => (
+								<Flex
+									key={key}
+									gap="sm"
+									alignItems="flex-start"
+									padding="md"
+									className="repeater__row"
+								>
+									<Flex direction="column" gap="xs">
+										<Body color="highlight" bold>
+											{value.name}
+										</Body>
+										<Body>{value.specialty}</Body>
+									</Flex>
+									<IconButton
+										icon="trash-alt"
+										variant="tertiary"
+										onClick={onDelete}
+										marginLeft="auto"
+									/>
+								</Flex>
+							)}
+						/>
+					</Card>
 				</Flex>
 			</Banner>
 
@@ -201,7 +315,11 @@ export default function AbilitiesPage({ profile }) {
 					<Body color="highlight">
 						<Icon icon="chess-rook" /> Lair Bonuses
 					</Body>
-					<Card backgroundColor="darker" noBorder></Card>
+					<Card backgroundColor="darker" noBorder padding="none">
+						<Button icon="magnifying-glass" variant="tertiary" fullWidth>
+							View Map
+						</Button>
+					</Card>
 				</Flex>
 			</Banner>
 		</>

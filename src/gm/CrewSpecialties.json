@@ -1,0 +1,10 @@
+{
+	"crew_type": {
+		"Assassins": ["Accident", "Disappearance", "Murder", "Ransom"],
+		"Bravos": ["Battle", "Extortion", "Sabotage", "Smash & Grab"],
+		"Cult": ["Acquisition", "Augury", "Consecration", "Sacrifice"],
+		"Hawkers": ["Sale", "Supply", "Show of Force", "Socialize"],
+		"Smugglers": ["Arcane/Weird", "Arms", "Contraband", "Passengers"],
+		"Shadows": ["Burglary", "Espionage", "Robbery", "Sabotage"]
+	}
+}

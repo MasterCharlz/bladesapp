@@ -7,6 +7,7 @@ import {
 	Select,
 	Collapsible,
 	Heading,
+	Caption,
 } from "./components";
 import PlayerCharacterRepeater from "./widgets/Repeaters";
 import profilesData from "./profiles.json";
@@ -97,9 +98,12 @@ export default function ProfileSelection() {
 				<Card key={profile.id} padding="none" fullWidth noBorder>
 					<Collapsible>
 						<Collapsible.Header>
-							<Heading color="highlight" size={3}>
-								{profile.crew_name || "Untitled Crew"}
-							</Heading>
+							<Flex gap="md" justifyContent="space-between" alignItems="center">
+								<Heading color="highlight" size={3}>
+									{profile.crew_name || "Untitled Crew"}
+								</Heading>
+								<Caption>{profile.crew_type || "No Type"}</Caption>
+							</Flex>
 						</Collapsible.Header>
 						<Collapsible.Body>
 							<Flex marginBottom="md">

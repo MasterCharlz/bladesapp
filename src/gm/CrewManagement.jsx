@@ -8,7 +8,7 @@ export default function CrewManagement({ profile }) {
 	const [activeSubPage, setActiveSubPage] = useState("heat");
 
 	return (
-		<>
+		<Flex direction="column" paddingBottom="xxl">
 			<SubNav
 				items={[
 					{ id: "heat", icon: "fire" },
@@ -23,6 +23,6 @@ export default function CrewManagement({ profile }) {
 			{activeSubPage === "heat" && <HeatPage />}
 			{activeSubPage === "abilities" && <AbilitiesPage profile={profile} />}
 			{activeSubPage === "contacts" && <ContactsPage profile={profile} />}
-		</>
+		</Flex>
 	);
 }

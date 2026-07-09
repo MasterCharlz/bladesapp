@@ -63,6 +63,7 @@ export default function GMView() {
 				<Clocks
 					profileId={profile.id}
 					playerCharacters={profile.characters || []}
+					marginTop="lg"
 				/>
 			) : (
 				<CrewManagement profile={profile} />

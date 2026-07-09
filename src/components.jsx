@@ -7,6 +7,7 @@ const SPACE = {
 	md: "16px",
 	lg: "24px",
 	xl: "40px",
+	xxl: "80px",
 };
 
 const sp = (val) => (val !== undefined ? (SPACE[val] ?? val) : undefined);
@@ -529,6 +530,32 @@ export function SelectionDot({
 			style={{ ...layoutStyle({ fullWidth, fullHeight }), ...style }}
 			onClick={handleClick}
 			aria-pressed={active}
+		/>
+	);
+}
+
+export function Pip({
+	active: initialActive = false,
+	onChange,
+	className = "",
+	style = {},
+}) {
+	const [active, setActive] = useState(initialActive);
+
+	const handleClick = () => {
+		const next = !active;
+		setActive(next);
+		onChange?.(next);
+	};
+
+	return (
+		<div
+			className={`pip ${active ? "pip--active" : ""} ${className}`}
+			style={style}
+			onClick={handleClick}
+			role="button"
+			tabIndex={0}
+			onKeyDown={(e) => e.key === "Enter" && handleClick()}
 		/>
 	);
 }

@@ -32,7 +32,7 @@ export default function Clocks({ playerCharacters = [], profileId }) {
 
 	return (
 		<>
-			<Flex direction="column" alignItems="center">
+			<Flex direction="column" alignItems="center" paddingBottom="xxl">
 				{rows.map((row) =>
 					row.editing ? (
 						<Banner key={row.id}>

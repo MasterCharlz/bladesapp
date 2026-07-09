@@ -105,6 +105,72 @@ export function useAbilitiesRepeater(profile, crewAbilitiesData) {
 	};
 }
 
+export function useUpgradesRepeater(profile, crewUpgradesData) {
+	const [items, setItems] = useState(profile?.upgrades || []);
+	const persist = useProfileDataPersist(profile?.id, "upgrades");
+
+	useEffect(() => {
+		setItems(profile?.upgrades || []);
+	}, [profile?.id, profile?.upgrades]);
+
+	useEffect(() => {
+		persist(items);
+	}, [items, persist]);
+
+	const activeCrewType = profile?.crew_type || "";
+	const upgrades = crewUpgradesData.crew_type?.[activeCrewType] || [];
+
+	const upgradeOptions = upgrades.map(({ value, description }) => ({
+		value,
+		label: description,
+	}));
+	const upgradeLookup = upgrades.reduce((acc, upgrade) => {
+		acc[upgrade.value] = upgrade;
+		return acc;
+	}, {});
+
+	const handleChange = useCallback((nextItems) => {
+		setItems(nextItems);
+	}, []);
+
+	return {
+		items,
+		handleChange,
+		upgradeOptions,
+		upgradeLookup,
+	};
+}
+
+export function useHuntingGroundsRepeater(profile, crewSpecialtiesData) {
+	const [items, setItems] = useState(profile?.huntingGrounds || []);
+	const persist = useProfileDataPersist(profile?.id, "huntingGrounds");
+
+	useEffect(() => {
+		setItems(profile?.huntingGrounds || []);
+	}, [profile?.id, profile?.huntingGrounds]);
+
+	useEffect(() => {
+		persist(items);
+	}, [items, persist]);
+
+	const handleChange = useCallback((nextItems) => {
+		setItems(nextItems);
+	}, []);
+
+	const activeCrewType = profile?.crew_type || "";
+	const specialties = crewSpecialtiesData?.crew_type?.[activeCrewType] || [];
+	const specialtyOptions = specialties.map((specialty) => ({
+		value: specialty,
+		label: specialty,
+	}));
+
+	return {
+		items,
+		handleChange,
+		specialtyOptions,
+	};
+}
+
 // ============================================================================
 // CLOCKS REPEATER UTILITIES
 // ============================================================================

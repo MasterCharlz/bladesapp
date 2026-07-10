@@ -63,11 +63,13 @@ svg {
 	padding: 0;
 	height: 100vh;
 }
-.display-title {
-	font-family: "New Rocker", serif;
-}
 
 .heading {
+	font-family: "New Rocker", serif;
+	font-weight: 100;
+}
+.heading--1 {
+	font-size: 40px;
 }
 .heading--2 {
 	font-size: 32px;
@@ -76,7 +78,7 @@ svg {
 	font-size: 20px;
 }
 .heading--4 {
-	font-size: 16px;
+	font-size: 20px;
 }
 
 .body-text {
@@ -84,15 +86,18 @@ svg {
 	font-weight: 500;
 	font-size: 16px;
 	color: var(--light);
-	line-height: 1.5;
+	line-height: 1.35;
 }
 .body-text--bold {
-	font-weight: 800;
+	font-weight: 700;
+	letter-spacing: 0.035em;
 }
 .caption {
-	font-size: 14px;
+	font-size: 10px;
+	font-weight: 900;
 	color: var(--light);
 	letter-spacing: 0.08em;
+	text-transform: uppercase;
 }
 .heading.align-right,
 .body-text.align-right,

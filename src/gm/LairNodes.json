@@ -46,7 +46,7 @@
 			{
 				"id": 7,
 				"title": "Cover Operation",
-				"description": "b-2 heat per score",
+				"description": "-2 heat per score",
 				"order": 2,
 				"position": 7
 			},
@@ -167,7 +167,7 @@
 			{
 				"id": 9,
 				"title": "Bluecoat Intimidation",
-				"description": "b-2 heat per score",
+				"description": "-2 heat per score",
 				"order": 2,
 				"position": 9
 			},
@@ -316,7 +316,7 @@
 			{
 				"id": 15,
 				"title": "Ancient Obelisk",
-				"description": "b-1 stress cost for all arcane powers and rituals",
+				"description": "-1 stress cost for all arcane powers and rituals",
 				"order": 4,
 				"position": 15
 			}
@@ -374,7 +374,7 @@
 			{
 				"id": 8,
 				"title": "Cover Operation",
-				"description": "b-2 heat per score",
+				"description": "-2 heat per score",
 				"order": 2,
 				"position": 8
 			},
@@ -481,7 +481,7 @@
 			{
 				"id": 8,
 				"title": "Cover Operation",
-				"description": "b-2 heat per score",
+				"description": "-2 heat per score",
 				"order": 2,
 				"position": 8
 			},

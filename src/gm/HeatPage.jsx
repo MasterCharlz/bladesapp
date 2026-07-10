@@ -17,11 +17,14 @@ export default function HeatPage() {
 		<>
 			{/* --- CREW XP --- */}
 			<Banner>
-				<Flex direction="column" gap="lg">
+				<Flex direction="column" gap="md">
 					<Flex direction="column" gap="sm">
-						<Body color="highlight">
-							<Icon icon="angles-up" /> Crew XP
-						</Body>
+						<Flex alignItems="baseline" gap="sm">
+							<Icon icon="angles-up" color="highlight" />
+							<Body color="highlight" bold>
+								Crew XP
+							</Body>
+						</Flex>
 						<Stepper amount="10" />
 						<Flex gap="sm">
 							<IconButton color="highlight" icon="minus" />
@@ -39,10 +42,11 @@ export default function HeatPage() {
 			<Banner>
 				<Flex direction="column" gap="sm">
 					<Flex gap="md" justifyContent="space-between">
-						<Body color="highlight">
-							<Icon icon="crown" /> Tier
-						</Body>
-						<Body>Weak</Body>
+						<Flex alignItems="baseline" gap="sm">
+							<Icon icon="crown" color="highlight" />
+							<Body color="highlight">Tier</Body>
+						</Flex>
+						<Body bold>Weak</Body>
 					</Flex>
 					<Stepper amount="4" />
 					<Flex gap="md" justifyContent="space-between" alignItems="center">
@@ -61,10 +65,15 @@ export default function HeatPage() {
 			<Banner>
 				<Flex direction="column" gap="sm">
 					<Flex gap="md" justifyContent="space-between">
-						<Body color="highlight">
-							<Icon icon="hand-fist" /> Rep
+						<Flex alignItems="baseline" gap="sm">
+							<Icon icon="hand-fist" color="highlight" />
+							<Body color="highlight" bold>
+								Rep
+							</Body>
+						</Flex>
+						<Body color="hero" bold>
+							Turf
 						</Body>
-						<Body color="hero">Turf</Body>
 					</Flex>
 					<Stepper amount="12" />
 					<Flex gap="md" justifyContent="space-between" alignItems="center">
@@ -84,10 +93,15 @@ export default function HeatPage() {
 			<Banner>
 				<Flex direction="column" gap="sm">
 					<Flex gap="md" justifyContent="space-between">
-						<Body color="highlight">
-							<Icon icon="fire" /> Heat
+						<Flex alignItems="baseline" gap="sm">
+							<Icon icon="fire" color="highlight" />
+							<Body color="highlight" bold>
+								Heat
+							</Body>
+						</Flex>
+						<Body color="heat" bold>
+							Wanted
 						</Body>
-						<Body color="heat">Wanted</Body>
 					</Flex>
 					<Stepper amount="12" />
 					<Flex gap="md" justifyContent="space-between" alignItems="center">
@@ -106,9 +120,12 @@ export default function HeatPage() {
 			{/* --- COIN --- */}
 			<Banner>
 				<Flex direction="column" gap="sm">
-					<Body color="highlight">
-						<Icon icon="ring" /> Coin
-					</Body>
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="ring" color="highlight" />
+						<Body color="highlight" bold>
+							Coin
+						</Body>
+					</Flex>
 					<Stepper amount="16" />
 					<Flex gap="sm">
 						<IconButton color="highlight" icon="minus" />

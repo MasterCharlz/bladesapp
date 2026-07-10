@@ -119,15 +119,15 @@ export default function Clocks({ playerCharacters = [], profileId }) {
 								<Flex direction="column" fullWidth>
 									<Flex
 										alignItems="baseline"
-										gap="sm"
+										gap="md"
 										justifyContent="space-between"
 									>
-										<Body color="highlight">
-											<Icon icon={getClockIcon(row.type)} /> {row.name}
-										</Body>
-										<Caption color="highlight">
-											{row.player || "Player"}
-										</Caption>
+										<Flex alignItems="baseline" gap="sm">
+											<Icon icon={getClockIcon(row.type)} color="highlight" />
+											<Body color="highlight">{row.name}</Body>
+										</Flex>
+
+										<Caption>{row.player || "Player"}</Caption>
 									</Flex>
 									<Stepper amount={row.slices} activeCount={row.progress} />
 								</Flex>

@@ -42,12 +42,7 @@ function UpgradeItem({ value, upgradeLookup, onDelete, onUpdate }) {
 	};
 
 	return (
-		<Flex
-			gap="md"
-			alignItems="flex-start"
-			padding="md"
-			className="repeater__row"
-		>
+		<Flex gap="md" alignItems="center" padding="md" className="repeater__row">
 			<Flex gap="sm" alignItems="center">
 				{Array.from({ length: selectedUpgrade?.pips || 0 }).map((_, i) => (
 					<Pip
@@ -94,10 +89,13 @@ export default function AbilitiesPage({ profile }) {
 		<>
 			{/* --- ABILITIES --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Body color="highlight">
-						<Icon icon="user-secret" /> Abilities
-					</Body>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="user-secret" color="highlight" />
+						<Body color="highlight" bold>
+							Abilities
+						</Body>
+					</Flex>
 					<Card backgroundColor="darker" noBorder padding="none">
 						<Repeater
 							controlledItems={abilityItems}
@@ -148,14 +146,14 @@ export default function AbilitiesPage({ profile }) {
 										padding="md"
 										className="repeater__row"
 									>
-										<div>
+										<Flex direction="column" gap="xs">
 											<Heading size={4} color="highlight">
 												{selectedAbility?.title || value.ability}
 											</Heading>
 											<Body className={"ability-description"}>
 												{renderDescription(selectedAbility?.Description || "")}
 											</Body>
-										</div>
+										</Flex>
 										<IconButton
 											icon="trash-alt"
 											variant="tertiary"
@@ -172,10 +170,13 @@ export default function AbilitiesPage({ profile }) {
 
 			{/* --- UPGRADES --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Body color="highlight">
-						<Icon icon="gears" /> Upgrades
-					</Body>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="gears" color="highlight" />
+						<Body color="highlight" bold>
+							Upgrades
+						</Body>
+					</Flex>
 					<Card backgroundColor="darker" noBorder padding="none">
 						<Repeater
 							controlledItems={upgradeItems}
@@ -231,10 +232,13 @@ export default function AbilitiesPage({ profile }) {
 
 			{/* --- HUNTING GROUNDS --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Body color="highlight">
-						<Icon icon="map-location-dot" /> Hunting Grounds
-					</Body>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="map-location-dot" color="highlight" />
+						<Body color="highlight" bold>
+							Hunting Grounds
+						</Body>
+					</Flex>
 					<Card backgroundColor="darker" noBorder padding="none">
 						<Repeater
 							controlledItems={huntingGroundItems}
@@ -293,9 +297,9 @@ export default function AbilitiesPage({ profile }) {
 									className="repeater__row"
 								>
 									<Flex direction="column" gap="xs">
-										<Body color="highlight" bold>
+										<Heading size={4} color="highlight">
 											{value.name}
-										</Body>
+										</Heading>
 										<Body>{value.specialty}</Body>
 									</Flex>
 									<IconButton
@@ -313,10 +317,13 @@ export default function AbilitiesPage({ profile }) {
 
 			{/* --- LAIR --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Body color="highlight">
-						<Icon icon="chess-rook" /> Lair Bonuses
-					</Body>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="chess-rook" color="highlight" />
+						<Body color="highlight" bold>
+							Lair Bonuses
+						</Body>
+					</Flex>
 					<Card backgroundColor="darker" noBorder padding="none">
 						<Button
 							icon="magnifying-glass"

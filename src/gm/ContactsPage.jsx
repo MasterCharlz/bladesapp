@@ -17,20 +17,26 @@ export default function ContactsPage({ profile }) {
 		<>
 			{/* --- COHORTS --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Body color="highlight">
-						<Icon icon="person-rifle" /> Cohorts
-					</Body>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="person-rifle" color="highlight" />
+						<Body color="highlight" bold>
+							Cohorts
+						</Body>
+					</Flex>
 					<Card backgroundColor="darker" noBorder></Card>
 				</Flex>
 			</Banner>
 
 			{/* --- CONTACTS --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Body color="highlight">
-						<Icon icon="phone" /> Contacts
-					</Body>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="phone" color="highlight" />
+						<Body color="highlight" bold>
+							Contacts
+						</Body>
+					</Flex>
 					<Card backgroundColor="darker" noBorder></Card>
 				</Flex>
 			</Banner>

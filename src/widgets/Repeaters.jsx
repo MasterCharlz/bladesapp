@@ -176,7 +176,7 @@ export function useHuntingGroundsRepeater(profile, crewSpecialtiesData) {
 // ============================================================================
 
 export const CLOCK_TYPES = [
-	{ id: "race", icon: "flag-checkered" },
+	{ id: "race", icon: "hourglass-half" },
 	{ id: "contested", icon: "scale-unbalanced" },
 	{ id: "danger", icon: "skull-crossbones" },
 ];

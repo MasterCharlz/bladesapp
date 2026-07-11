@@ -32,7 +32,7 @@ export default function HeatPage() {
 						</Flex>
 					</Flex>
 					<div>
-						<Caption>Advancement</Caption>
+						<Caption color="highlight">Advancement</Caption>
 						<Body>Insert Advancement Here</Body>
 					</div>
 				</Flex>
@@ -44,7 +44,9 @@ export default function HeatPage() {
 					<Flex gap="md" justifyContent="space-between">
 						<Flex alignItems="baseline" gap="sm">
 							<Icon icon="crown" color="highlight" />
-							<Body color="highlight">Tier</Body>
+							<Body color="highlight" bold>
+								Tier
+							</Body>
 						</Flex>
 						<Body bold>Weak</Body>
 					</Flex>

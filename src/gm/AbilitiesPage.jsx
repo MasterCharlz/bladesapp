@@ -4,6 +4,7 @@ import {
 	Flex,
 	Card,
 	Body,
+	Caption,
 	Banner,
 	Button,
 	IconButton,
@@ -107,13 +108,11 @@ export default function AbilitiesPage({ profile }) {
 							formRenderer={({ value, setValue, onSave, onCancel }) => (
 								<Flex
 									direction="column"
-									gap="sm"
+									gap="xs"
 									padding="md"
 									className="repeater__row"
 								>
-									<Body color="highlight" bold>
-										New Crew Ability
-									</Body>
+									<Caption color="highlight">New Crew Ability</Caption>
 									<Select
 										value={value.ability}
 										onChange={(ability) => setValue({ ability })}
@@ -188,13 +187,11 @@ export default function AbilitiesPage({ profile }) {
 							formRenderer={({ value, setValue, onSave, onCancel }) => (
 								<Flex
 									direction="column"
-									gap="sm"
+									gap="xs"
 									padding="md"
 									className="repeater__row"
 								>
-									<Body color="highlight" bold>
-										New Crew Upgrade
-									</Body>
+									<Caption color="highlight">New Crew Upgrade</Caption>
 									<Select
 										value={value.upgrade}
 										onChange={(upgrade) => setValue({ upgrade })}
@@ -250,24 +247,26 @@ export default function AbilitiesPage({ profile }) {
 							formRenderer={({ value, setValue, onSave, onCancel }) => (
 								<Flex
 									direction="column"
-									gap="sm"
+									gap="xs"
 									padding="md"
 									className="repeater__row"
 								>
-									<Body color="highlight" bold>
-										New Hunting Ground
-									</Body>
-									<TextInput
-										value={value.name}
-										onChange={(name) => setValue({ ...value, name })}
-										placeholder="Enter Name"
-									/>
-									<Select
-										value={value.specialty}
-										onChange={(specialty) => setValue({ ...value, specialty })}
-										options={specialtyOptions}
-										placeholder="Select a specialty..."
-									/>
+									<Caption color="highlight">New Hunting Ground</Caption>
+									<Flex direction="column" gap="sm">
+										<TextInput
+											value={value.name}
+											onChange={(name) => setValue({ ...value, name })}
+											placeholder="Enter Name"
+										/>
+										<Select
+											value={value.specialty}
+											onChange={(specialty) =>
+												setValue({ ...value, specialty })
+											}
+											options={specialtyOptions}
+											placeholder="Select a specialty..."
+										/>
+									</Flex>
 									<Flex gap="sm" justifyContent="space-between" paddingTop="md">
 										<Button
 											icon="check"

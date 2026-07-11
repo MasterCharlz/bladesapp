@@ -6,28 +6,28 @@
 				"title": "Lair",
 				"description": "",
 				"order": 0,
-				"position": 1
+				"position": 8
 			},
 			{
 				"id": 2,
 				"title": "Fixer",
 				"description": "+2 coin for lower-class targets",
 				"order": 1,
-				"position": 2
+				"position": 9
 			},
 			{
 				"id": 3,
 				"title": "Turf",
 				"description": "",
 				"order": 1,
-				"position": 3
+				"position": 11
 			},
 			{
 				"id": 4,
 				"title": "Envoy",
 				"description": "+2 coin for high-class targets",
 				"order": 1,
-				"position": 4
+				"position": 7
 			},
 			{
 				"id": 5,
@@ -41,70 +41,70 @@
 				"title": "Informants",
 				"description": "+1d to gather info for scores",
 				"order": 2,
-				"position": 6
+				"position": 12
 			},
 			{
 				"id": 7,
 				"title": "Cover Operation",
 				"description": "-2 heat per score",
 				"order": 2,
-				"position": 7
+				"position": 14
 			},
 			{
 				"id": 8,
 				"title": "Infirmary",
 				"description": "+1d to healing rolls",
 				"order": 2,
-				"position": 8
+				"position": 4
 			},
 			{
 				"id": 9,
 				"title": "Vice Den",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 2,
-				"position": 9
+				"position": 6
 			},
 			{
 				"id": 10,
 				"title": "Hagfish Farm",
 				"description": "Body disposal, +1d to reduce heat after killing",
 				"order": 3,
-				"position": 10
+				"position": 15
 			},
 			{
 				"id": 11,
 				"title": "City Records",
 				"description": "+1d engagement for stealth plans",
 				"order": 3,
-				"position": 11
+				"position": 13
 			},
 			{
 				"id": 12,
 				"title": "Protection racket",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 3,
-				"position": 12
+				"position": 1
 			},
 			{
 				"id": 13,
 				"title": "Training Rooms",
 				"description": "+1d scale for your Skulks cohorts",
 				"order": 3,
-				"position": 13
+				"position": 3
 			},
 			{
 				"id": 14,
 				"title": "Cover Identities",
 				"description": "+1d engagement for deception and social plans",
 				"order": 4,
-				"position": 14
+				"position": 10
 			},
 			{
 				"id": 15,
 				"title": "Victim Trophies",
 				"description": "+1 rep per score",
 				"order": 4,
-				"position": 15
+				"position": 2
 			}
 		],
 		"Bravos": [
@@ -113,28 +113,28 @@
 				"title": "Lair",
 				"description": "",
 				"order": 0,
-				"position": 1
+				"position": 8
 			},
 			{
 				"id": 2,
 				"title": "Terrorized Citizens",
 				"description": "+2 coin for battle or extortion",
 				"order": 1,
-				"position": 2
+				"position": 9
 			},
 			{
 				"id": 3,
 				"title": "Turf",
 				"description": "",
 				"order": 1,
-				"position": 3
+				"position": 11
 			},
 			{
 				"id": 4,
 				"title": "Street Fence",
 				"description": "+2 coin for lower-class targets",
 				"order": 1,
-				"position": 4
+				"position": 7
 			},
 			{
 				"id": 5,
@@ -148,49 +148,49 @@
 				"title": "Informants",
 				"description": "+1d to gather info for scores",
 				"order": 2,
-				"position": 6
+				"position": 12
 			},
 			{
 				"id": 7,
 				"title": "Turf",
 				"description": "",
 				"order": 2,
-				"position": 7
+				"position": 14
 			},
 			{
 				"id": 8,
 				"title": "Warehouses",
 				"description": "Stockpiles give you +1d to acquire assets",
 				"order": 2,
-				"position": 8
+				"position": 10
 			},
 			{
 				"id": 9,
 				"title": "Bluecoat Intimidation",
 				"description": "-2 heat per score",
 				"order": 2,
-				"position": 9
+				"position": 4
 			},
 			{
 				"id": 10,
 				"title": "Fighting Pits",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 2,
-				"position": 10
+				"position": 2
 			},
 			{
 				"id": 11,
 				"title": "Turf",
 				"description": "",
 				"order": 2,
-				"position": 11
+				"position": 6
 			},
 			{
 				"id": 12,
 				"title": "Protection Racket",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 3,
-				"position": 12
+				"position": 15
 			},
 			{
 				"id": 13,
@@ -204,14 +204,14 @@
 				"title": "Infirmary",
 				"description": "+1d to healing rolls",
 				"order": 4,
-				"position": 14
+				"position": 1
 			},
 			{
 				"id": 15,
 				"title": "Barracks",
 				"description": "+1 scale for your Thug cohorts",
 				"order": 4,
-				"position": 15
+				"position": 3
 			}
 		],
 		"Cult": [
@@ -220,28 +220,28 @@
 				"title": "Lair",
 				"description": "",
 				"order": 0,
-				"position": 1
+				"position": 8
 			},
 			{
 				"id": 2,
 				"title": "Offertory",
 				"description": "+2 coin for occult operations",
 				"order": 1,
-				"position": 2
+				"position": 9
 			},
 			{
 				"id": 3,
 				"title": "Turf",
 				"description": "",
 				"order": 1,
-				"position": 3
+				"position": 11
 			},
 			{
 				"id": 4,
 				"title": "Sanctuary",
 				"description": "+1d to Command and Sway on site",
 				"order": 1,
-				"position": 4
+				"position": 7
 			},
 			{
 				"id": 5,
@@ -255,70 +255,70 @@
 				"title": "Turf",
 				"description": "",
 				"order": 2,
-				"position": 6
+				"position": 14
 			},
 			{
 				"id": 7,
 				"title": "Sacred Nexus",
 				"description": "+1d to healing rolls",
 				"order": 2,
-				"position": 7
+				"position": 10
 			},
 			{
 				"id": 8,
 				"title": "Ancient Gate",
 				"description": "Safe passage in the Deathlands",
 				"order": 2,
-				"position": 8
+				"position": 4
 			},
 			{
 				"id": 9,
 				"title": "Turf",
 				"description": "",
 				"order": 2,
-				"position": 9
+				"position": 2
 			},
 			{
 				"id": 10,
 				"title": "Vice Den",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 2,
-				"position": 10
+				"position": 6
 			},
 			{
 				"id": 11,
 				"title": "Ancient Tower",
 				"description": "+1d to Consort w/ arcane entities on site",
 				"order": 3,
-				"position": 11
+				"position": 15
 			},
 			{
 				"id": 12,
 				"title": "Ancient Altar",
 				"description": "+1d engagement for occult plans",
 				"order": 3,
-				"position": 12
+				"position": 13
 			},
 			{
 				"id": 13,
 				"title": "Spirit Well",
 				"description": "+1d to Attune on site",
 				"order": 3,
-				"position": 13
+				"position": 1
 			},
 			{
 				"id": 14,
 				"title": "Cloister",
 				"description": "+1 scale for your Adept cohorts",
 				"order": 3,
-				"position": 14
+				"position": 3
 			},
 			{
 				"id": 15,
 				"title": "Ancient Obelisk",
 				"description": "-1 stress cost for all arcane powers and rituals",
 				"order": 4,
-				"position": 15
+				"position": 12
 			}
 		],
 		"Hawkers": [
@@ -327,28 +327,28 @@
 				"title": "Lair",
 				"description": "",
 				"order": 0,
-				"position": 1
+				"position": 8
 			},
 			{
 				"id": 2,
 				"title": "Local Graft",
 				"description": "+2 coin for show of force or socialize",
 				"order": 1,
-				"position": 2
+				"position": 9
 			},
 			{
 				"id": 3,
 				"title": "Turf",
 				"description": "",
 				"order": 1,
-				"position": 3
+				"position": 11
 			},
 			{
 				"id": 4,
 				"title": "Surplus Caches",
 				"description": "+2 coin for product sale or supply",
 				"order": 1,
-				"position": 4
+				"position": 7
 			},
 			{
 				"id": 5,
@@ -362,70 +362,70 @@
 				"title": "Lookouts",
 				"description": "+1d to Survey or Hunt on your turf",
 				"order": 2,
-				"position": 6
+				"position": 12
 			},
 			{
 				"id": 7,
 				"title": "Luxury Venue",
 				"description": "+1d to Consort and Sway on site",
 				"order": 2,
-				"position": 7
+				"position": 14
 			},
 			{
 				"id": 8,
 				"title": "Cover Operation",
 				"description": "-2 heat per score",
 				"order": 2,
-				"position": 8
+				"position": 10
 			},
 			{
 				"id": 9,
 				"title": "Vice Den",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 2,
-				"position": 9
+				"position": 4
 			},
 			{
 				"id": 10,
 				"title": "Personal Clothier",
 				"description": "+1d engagement for social plans",
 				"order": 2,
-				"position": 10
+				"position": 6
 			},
 			{
 				"id": 11,
 				"title": "Informants",
 				"description": "+1d to gather info for scores",
 				"order": 3,
-				"position": 11
+				"position": 15
 			},
 			{
 				"id": 12,
 				"title": "Cover Identities",
 				"description": "+1d engagement for deception and transport plans",
 				"order": 3,
-				"position": 12
+				"position": 13
 			},
 			{
 				"id": 13,
 				"title": "Foreign Market",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 3,
-				"position": 13
+				"position": 1
 			},
 			{
 				"id": 14,
 				"title": "Turf",
 				"description": "",
 				"order": 3,
-				"position": 14
+				"position": 3
 			},
 			{
 				"id": 15,
 				"title": "Turf",
 				"description": "",
 				"order": 4,
-				"position": 15
+				"position": 2
 			}
 		],
 		"Smugglers": [
@@ -434,28 +434,28 @@
 				"title": "Lair",
 				"description": "",
 				"order": 0,
-				"position": 1
+				"position": 8
 			},
 			{
 				"id": 2,
 				"title": "Luxury Fence",
 				"description": "+2 coin for high-class targets",
 				"order": 1,
-				"position": 2
+				"position": 9
 			},
 			{
 				"id": 3,
 				"title": "Turf",
 				"description": "",
 				"order": 1,
-				"position": 3
+				"position": 11
 			},
 			{
 				"id": 4,
 				"title": "Fleet",
 				"description": "Your cohorts have their own vehicles",
 				"order": 1,
-				"position": 4
+				"position": 7
 			},
 			{
 				"id": 5,
@@ -469,70 +469,70 @@
 				"title": "Vice Den",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 2,
-				"position": 6
+				"position": 12
 			},
 			{
 				"id": 7,
 				"title": "Turf",
 				"description": "",
 				"order": 2,
-				"position": 7
+				"position": 14
 			},
 			{
 				"id": 8,
 				"title": "Cover Operation",
 				"description": "-2 heat per score",
 				"order": 2,
-				"position": 8
+				"position": 10
 			},
 			{
 				"id": 9,
 				"title": "Informants",
 				"description": "+1d to gather info for scores",
 				"order": 2,
-				"position": 9
+				"position": 4
 			},
 			{
 				"id": 10,
 				"title": "Side Business",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 2,
-				"position": 10
+				"position": 6
 			},
 			{
 				"id": 11,
 				"title": "Tavern",
 				"description": "+1d to Consort and Sway on site",
 				"order": 3,
-				"position": 11
+				"position": 15
 			},
 			{
 				"id": 12,
 				"title": "Warehouse",
 				"description": "Stockpiles give you +1d to acquire assets",
 				"order": 3,
-				"position": 12
+				"position": 13
 			},
 			{
 				"id": 13,
 				"title": "Secret Routes",
 				"description": "+1d engagement for transport plans",
 				"order": 3,
-				"position": 13
+				"position": 1
 			},
 			{
 				"id": 14,
 				"title": "Turf",
 				"description": "",
 				"order": 3,
-				"position": 14
+				"position": 3
 			},
 			{
 				"id": 15,
 				"title": "Ancient Gate",
 				"description": "Safe passage in the Deathlands",
 				"order": 4,
-				"position": 15
+				"position": 2
 			}
 		],
 		"Shadows": [
@@ -541,28 +541,28 @@
 				"title": "Lair",
 				"description": "",
 				"order": 0,
-				"position": 1
+				"position": 8
 			},
 			{
 				"id": 2,
 				"title": "Loyal Fence",
 				"description": "+2 coin for burglary or robbery",
 				"order": 1,
-				"position": 2
+				"position": 9
 			},
 			{
 				"id": 3,
 				"title": "Turf",
 				"description": "",
 				"order": 1,
-				"position": 3
+				"position": 11
 			},
 			{
 				"id": 4,
 				"title": "Covert Drops",
 				"description": "+2 coin for espionage or sabotage",
 				"order": 1,
-				"position": 4
+				"position": 7
 			},
 			{
 				"id": 5,
@@ -576,49 +576,49 @@
 				"title": "Gambling Den",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 2,
-				"position": 6
+				"position": 12
 			},
 			{
 				"id": 7,
 				"title": "Lookouts",
 				"description": "+1d to Survey or Hunt on your turf",
 				"order": 2,
-				"position": 7
+				"position": 14
 			},
 			{
 				"id": 8,
 				"title": "Turf",
 				"description": "",
 				"order": 2,
-				"position": 8
+				"position": 10
 			},
 			{
 				"id": 9,
 				"title": "Infirmary",
 				"description": "+1d to healing rolls",
 				"order": 2,
-				"position": 9
+				"position": 4
 			},
 			{
 				"id": 10,
 				"title": "Drug Den",
 				"description": "(Tier roll) - Heat = coin in downtime",
 				"order": 2,
-				"position": 10
+				"position": 2
 			},
 			{
 				"id": 11,
 				"title": "Turf",
 				"description": "",
 				"order": 2,
-				"position": 11
+				"position": 6
 			},
 			{
 				"id": 12,
 				"title": "Tavern",
 				"description": "+1d to Consort and Sway on site",
 				"order": 3,
-				"position": 12
+				"position": 15
 			},
 			{
 				"id": 13,
@@ -632,14 +632,14 @@
 				"title": "Hagfish Farm",
 				"description": "Body disposal, +1d to reduce heat after killing",
 				"order": 3,
-				"position": 14
+				"position": 1
 			},
 			{
 				"id": 15,
 				"title": "Interrogation Chamber",
 				"description": "+1d to Command and Sway on site",
 				"order": 3,
-				"position": 15
+				"position": 3
 			}
 		]
 	}

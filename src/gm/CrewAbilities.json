@@ -24,7 +24,7 @@
 			{
 				"value": "patron",
 				"title": "Patron",
-				"Description": "When you advance your <b>Tier</b>, it costs <b>half the coin</b> it normally would. <i>Who is your patron? Why do they help you?</b>"
+				"Description": "When you advance your <b>Tier</b>, it costs <b>half the coin</b> it normally would. Who is your patron? Why do they help you?</b>"
 			},
 			{
 				"value": "predators",
@@ -66,7 +66,7 @@
 			{
 				"value": "patron",
 				"title": "Patron",
-				"Description": "When you advance your <b>Tier</b>, it costs <b>half the coin</b> it normally would. <i>Who is your patron? Why do they help you?</b>"
+				"Description": "When you advance your <b>Tier</b>, it costs <b>half the coin</b> it normally would. Who is your patron? Why do they help you?</b>"
 			},
 			{
 				"value": "war_dogs",
@@ -130,7 +130,7 @@
 			{
 				"value": "ghost_market",
 				"title": "Ghost Market",
-				"Description": "Through arcane ritual or hard-won experience, you have discovered how to prepare your product for sale to ghosts and/or demons. <i>They do not pay in coin. What do they pay with?</i>"
+				"Description": "Through arcane ritual or hard-won experience, you have discovered how to prepare your product for sale to ghosts and/or demons. They do not pay in coin. What do they pay with?"
 			},
 			{
 				"value": "high_society",
@@ -140,12 +140,12 @@
 			{
 				"value": "hooked",
 				"title": "Hooked",
-				"Description": "Your gang members use your product. Add the <i>savage</i>, <i>unreliable</i>, or <i>wild</i> flaw to your gangs to give them <b>+1 quality</b>."
+				"Description": "Your gang members use your product. Add the savage, unreliable, or wild flaw to your gangs to give them <b>+1 quality</b>."
 			},
 			{
 				"value": "patron",
 				"title": "Patron",
-				"Description": "When you advance your <b>Tier</b>, it costs <b>half the coin</b> it normally would. <i>Who is your patron? Why do they help you?</b>"
+				"Description": "When you advance your <b>Tier</b>, it costs <b>half the coin</b> it normally would. Who is your patron? Why do they help you?</b>"
 			}
 		],
 		"Smugglers": [
@@ -204,7 +204,7 @@
 			{
 				"value": "patron",
 				"title": "Patron",
-				"Description": "When you advance your <b>Tier</b>, it costs <b>half the coin</b> it normally would. <i>Who is your patron? Why do they help you?</b>"
+				"Description": "When you advance your <b>Tier</b>, it costs <b>half the coin</b> it normally would. Who is your patron? Why do they help you?</b>"
 			},
 			{
 				"value": "second_story",

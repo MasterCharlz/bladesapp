@@ -371,6 +371,17 @@ svg {
 	width: 100%;
 	gap: 8px;
 }
+/* Update these with an active stateS */
+.stepper.race {
+}
+.stepper.contested {
+}
+.stepper.danger .stepper__segment {
+}
+.stepper__segment.turf {
+}
+.stepper__segment.wanted {
+}
 .stepper__segment {
 	flex: 1;
 	height: 8px;
@@ -398,32 +409,47 @@ svg {
 .lair-grid {
 	justify-items: center;
 	align-items: center;
-	grid-template-columns: 100px 25px 100px 25px 100px !important;
-	grid-template-rows: 100px 25px 100px 25px 100px !important;
+	grid-template-columns: 125px 10px 125px 10px 125px !important;
+	grid-template-rows: 125px 10px 125px 10px 125px 10px 125px !important;
 }
 .lair-node {
-	width: 100px;
-	height: 100px;
+	width: 125px;
+	height: 125px;
 	background: var(--lightest);
 	border-radius: 4px;
-}
-.lair-node .heading {
-	color: var(--highlight);
-	font-size: 16px;
-}
-.lair-node .caption {
-	font-size: 12px;
+	line-height: 1.1;
+	padding: 8px;
 }
 
 .lair-node--active {
 	background: var(--highlight);
 }
+.lair-node .heading,
+.lair-node .caption {
+	font-family: "Nunito Sans", sans-serif;
+}
+.lair-node .heading {
+	color: var(--highlight);
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+.lair-node .caption {
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: initial;
+}
 .lair-node--active .heading,
 .lair-node--active .caption {
 	color: var(--dark);
+	font-weight: 900;
+}
+.lair-node--inactive .heading,
+.lair-node--inactive .caption {
 }
 .lair-connector {
-	width: 25px;
-	height: 25px;
+	width: 10px;
+	height: 10px;
 	background: var(--lightest);
 }

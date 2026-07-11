@@ -62,7 +62,7 @@ export default function GMView() {
 					Back
 				</Button>
 				<Heading color="highlight" className={"align-right"}>
-					Crew Name long long long
+					{profile.crew_name}
 				</Heading>
 			</Flex>
 			<Nav

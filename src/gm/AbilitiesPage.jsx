@@ -18,6 +18,7 @@ import {
 import crewAbilitiesData from "./CrewAbilities.json";
 import crewSpecialtiesData from "./CrewSpecialties.json";
 import crewUpgradesData from "./CrewUpgrades.json";
+import lairNodesData from "./LairNodes.json";
 import {
 	renderBoldText,
 	useAbilitiesRepeater,
@@ -66,6 +67,26 @@ function UpgradeItem({ value, upgradeLookup, onDelete, onUpdate }) {
 
 export default function AbilitiesPage({ profile }) {
 	const navigate = useNavigate();
+	let savedLairStates = {};
+	try {
+		const saved = JSON.parse(
+			localStorage.getItem(`lair-map-${profile?.id}`) || "{}",
+		);
+		if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+			savedLairStates = saved;
+		}
+	} catch (e) {
+		// ignore storage failures
+	}
+
+	const activeLairNodes = (
+		lairNodesData.crew_type?.[profile?.crew_type] || []
+	).filter(
+		(node) =>
+			savedLairStates[node.id] === true &&
+			node.title !== "Lair" &&
+			node.title !== "Turf",
+	);
 	const {
 		items: abilityItems,
 		handleChange: handleAbilityChange,
@@ -324,6 +345,19 @@ export default function AbilitiesPage({ profile }) {
 						</Body>
 					</Flex>
 					<Card backgroundColor="darker" noBorder padding="none">
+						{activeLairNodes.map((node) => (
+							<Flex
+								key={node.id}
+								className="repeater__row"
+								padding="md"
+								direction="column"
+							>
+								<Heading size={4} color="highlight">
+									{node.title}
+								</Heading>
+								<Body>{node.description}</Body>
+							</Flex>
+						))}
 						<Button
 							icon="magnifying-glass"
 							variant="tertiary"

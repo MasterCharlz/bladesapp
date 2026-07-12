@@ -264,6 +264,8 @@ svg {
 	bottom: 0;
 	left: 0;
 	right: 0;
+	z-index: 1000;
+	box-shadow: 0 0 20px -5px rgba(15, 10, 20, 0.5);
 }
 .sub-nav {
 	display: flex;

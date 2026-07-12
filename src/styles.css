@@ -418,6 +418,15 @@ svg {
 .stepper--coin.vault-2::after {
 	background-color: var(--highlight);
 }
+.stepper.contested .stepper__segment {
+	background-color: var(--heat);
+}
+.stepper.contested .stepper__segment--active {
+	background-color: var(--hero);
+}
+.stepper.danger .stepper__segment--active {
+	background-color: var(--heat);
+}
 .selection-dot {
 	width: 12px;
 	height: 12px;

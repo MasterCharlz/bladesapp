@@ -191,6 +191,14 @@ svg {
 	cursor: pointer;
 	border: none;
 }
+.icon-btn--rotated i {
+	transform: rotate(180deg);
+	transition: transform 200ms ease;
+}
+
+.icon-btn i {
+	transition: transform 200ms ease;
+}
 
 .pip {
 	width: 12px;
@@ -371,22 +379,20 @@ svg {
 	width: 100%;
 	gap: 8px;
 }
-/* Update these with an active stateS */
-.stepper.race {
-}
-.stepper.contested {
-}
-.stepper.danger .stepper__segment {
-}
-.stepper__segment.turf {
-}
-.stepper__segment.wanted {
-}
 .stepper__segment {
 	flex: 1;
 	height: 8px;
 	border-radius: 4px;
 	background-color: var(--lightest);
+}
+.stepper__segment--active {
+	background-color: var(--highlight);
+}
+.stepper--heat .stepper__segment--active {
+	background-color: var(--heat);
+}
+.stepper__segment.turf--active {
+	background-color: var(--hero);
 }
 .selection-dot {
 	width: 12px;

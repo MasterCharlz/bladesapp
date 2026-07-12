@@ -35,7 +35,7 @@ export default function CrewManagement({ profile }) {
 				fullWidth
 			/>
 
-			{activeSubPage === "heat" && <HeatPage />}
+			{activeSubPage === "heat" && <HeatPage profile={profile} />}
 			{activeSubPage === "abilities" && <AbilitiesPage profile={profile} />}
 			{activeSubPage === "contacts" && <ContactsPage profile={profile} />}
 		</Flex>

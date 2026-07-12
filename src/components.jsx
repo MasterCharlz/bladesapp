@@ -486,6 +486,7 @@ export function Stepper({
 	amount = 5,
 	activeCount = 0,
 	type,
+	getSegmentClass,
 	className = "",
 	style = {},
 	fullWidth,
@@ -496,14 +497,17 @@ export function Stepper({
 			className={`stepper ${className}`}
 			style={{ ...layoutStyle({ fullWidth, fullHeight }), ...style }}
 		>
-			{Array.from({ length: amount }).map((_, i) => (
-				<div
-					key={i}
-					className="stepper__segment"
-					style={i < activeCount ? { backgroundColor: "var(--highlight)" } : {}}
-					data-type={type}
-				/>
-			))}
+			{Array.from({ length: amount }).map((_, i) => {
+				const segmentClass = getSegmentClass?.(i);
+
+				return (
+					<div
+						key={i}
+						className={`stepper__segment ${i < activeCount ? "stepper__segment--active" : ""}${segmentClass ? ` ${segmentClass}` : ""}`}
+						data-type={type}
+					/>
+				);
+			})}
 		</div>
 	);
 }

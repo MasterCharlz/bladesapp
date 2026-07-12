@@ -633,13 +633,18 @@ export function Grid({
 }
 
 export function LairConnector({
+	id,
 	orientation = "horizontal",
+	hidden = false,
+	active = false,
 	className = "",
 	style = {},
 }) {
 	return (
 		<div
-			className={`lair-connector lair-connector--${orientation} ${className}`}
+			data-id={id}
+			data-active={active}
+			className={`lair-connector lair-connector--${orientation} ${active ? "lair-connector--active" : "lair-connector--inactive"} ${hidden ? "lair-connector--hidden" : ""} ${className}`}
 			style={style}
 		/>
 	);
@@ -685,6 +690,8 @@ export function LairNode({
 
 export function LairGrid({
 	nodes = [],
+	nodeStates = {},
+	connectorStates = {},
 	children,
 	className = "",
 	style = {},
@@ -706,6 +713,32 @@ export function LairGrid({
 	});
 	const gridColumns = `repeat(${columns * 2 - 1}, 1fr)`;
 	const gridRows = `repeat(${rows * 2 - 1}, auto)`;
+	const nodeByPosition = nodes.reduce((lookup, node) => {
+		lookup[Number(node.position)] = node;
+		return lookup;
+	}, {});
+
+	function getConnectorState(id, firstPosition, secondPosition) {
+		const firstNode = nodeByPosition[firstPosition];
+		const secondNode = nodeByPosition[secondPosition];
+		const firstOrder = Number(firstNode?.order);
+		const secondOrder = Number(secondNode?.order);
+		const higherNode = firstOrder >= secondOrder ? firstNode : secondNode;
+		const lowerNode = firstOrder >= secondOrder ? secondNode : firstNode;
+		const active = Boolean(
+			firstNode &&
+			secondNode &&
+			Number.isFinite(firstOrder) &&
+			Number.isFinite(secondOrder) &&
+			nodeStates[higherNode.id] &&
+			nodeStates[lowerNode.id],
+		);
+
+		return {
+			hidden: Boolean(connectorStates[id]?.hidden),
+			active,
+		};
+	}
 
 	function renderCell(rowIndex, columnIndex) {
 		const isNodeRow = rowIndex % 2 === 0;
@@ -751,19 +784,41 @@ export function LairGrid({
 		}
 
 		if (isNodeRow && !isNodeColumn) {
+			const connectorId = `h-${rowIndex}-${columnIndex}`;
+			const leftPosition = (rowIndex / 2) * columns + (columnIndex - 1) / 2 + 1;
+			const rightPosition = leftPosition + 1;
+			const connectorState = getConnectorState(
+				connectorId,
+				leftPosition,
+				rightPosition,
+			);
+
 			return (
 				<LairConnector
-					key={`connector-h-${rowIndex}-${columnIndex}`}
+					key={connectorId}
+					id={connectorId}
 					orientation="horizontal"
+					{...connectorState}
 				/>
 			);
 		}
 
 		if (!isNodeRow && isNodeColumn) {
+			const connectorId = `v-${rowIndex}-${columnIndex}`;
+			const topPosition = ((rowIndex - 1) / 2) * columns + columnIndex / 2 + 1;
+			const bottomPosition = topPosition + columns;
+			const connectorState = getConnectorState(
+				connectorId,
+				topPosition,
+				bottomPosition,
+			);
+
 			return (
 				<LairConnector
-					key={`connector-v-${rowIndex}-${columnIndex}`}
+					key={connectorId}
+					id={connectorId}
 					orientation="vertical"
+					{...connectorState}
 				/>
 			);
 		}

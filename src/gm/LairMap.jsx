@@ -36,6 +36,7 @@ export default function LairMap() {
 	const profile = profilesRaw.find((item) => String(item.id) === String(id));
 	const crewType = profile?.crew_type || "";
 	const lairNodes = lairNodesData.crew_type?.[crewType] || [];
+	const connectorStates = lairNodesData.connections?.[crewType] || {};
 
 	function handleNodeChange(nodeId, active) {
 		setNodeStates((previous) => ({
@@ -62,7 +63,11 @@ export default function LairMap() {
 			padding="lg"
 			fullHeight
 		>
-			<LairGrid>
+			<LairGrid
+				nodes={lairNodes}
+				nodeStates={nodeStates}
+				connectorStates={connectorStates}
+			>
 				{lairNodes.map((node) => (
 					<LairNode
 						key={node.id}
@@ -88,3 +93,8 @@ export default function LairMap() {
 		</Flex>
 	);
 }
+// ----------------------------------------------------------------------------
+// How to turn Lair Connectors off:
+// Connector positions use a 0-based grid
+// [Horizontal or Vertical connector] - [Row position] - [Column position]
+// ----------------------------------------------------------------------------

@@ -409,12 +409,12 @@ svg {
 .lair-grid {
 	justify-items: center;
 	align-items: center;
-	grid-template-columns: 125px 10px 125px 10px 125px !important;
-	grid-template-rows: 125px 10px 125px 10px 125px 10px 125px !important;
+	grid-template-columns: 115px 20px 115px 20px 115px !important;
+	grid-template-rows: 115px 20px 115px 20px 115px 20px 115px !important;
 }
 .lair-node {
-	width: 125px;
-	height: 125px;
+	width: 115px;
+	height: 115px;
 	background: var(--lightest);
 	border-radius: 4px;
 	line-height: 1.1;
@@ -449,7 +449,19 @@ svg {
 .lair-node--inactive .caption {
 }
 .lair-connector {
-	width: 10px;
-	height: 10px;
+	width: 20px;
+	height: 20px;
 	background: var(--lightest);
+}
+.lair-connector--active {
+	background: var(--highlight);
+}
+.lair-connector--hidden {
+	visibility: hidden;
+}
+.lair-connector--horizontal {
+	height: 20px;
+}
+.lair-connector--vertical {
+	width: 20px;
 }

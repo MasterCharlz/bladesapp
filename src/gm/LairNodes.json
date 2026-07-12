@@ -642,5 +642,48 @@
 				"position": 3
 			}
 		]
+	},
+	"connections": {
+		"Assassins": {
+			"v-1-2": { "hidden": true },
+			"v-3-0": { "hidden": true },
+			"v-3-4": { "hidden": true },
+			"v-5-0": { "hidden": true },
+			"v-5-4": { "hidden": true },
+			"h-6-1": { "hidden": true }
+		},
+		"Bravos": {
+			"h-2-3": { "hidden": true },
+			"v-3-0": { "hidden": true },
+			"v-5-4": { "hidden": true }
+		},
+		"Cult": {
+			"h-0-1": { "hidden": true },
+			"v-3-0": { "hidden": true },
+			"v-5-0": { "hidden": true },
+			"v-5-4": { "hidden": true },
+			"h-6-3": { "hidden": true }
+		},
+		"Hawkers": {
+			"v-1-2": { "hidden": true },
+			"v-3-0": { "hidden": true },
+			"v-3-4": { "hidden": true },
+			"v-5-0": { "hidden": true },
+			"v-5-4": { "hidden": true },
+			"h-8-1": { "hidden": true }
+		},
+		"Smugglers": {
+			"v-1-2": { "hidden": true },
+			"v-3-0": { "hidden": true },
+			"v-3-4": { "hidden": true },
+			"v-5-0": { "hidden": true },
+			"v-5-4": { "hidden": true }
+		},
+		"Shadows": {
+			"h-2-3": { "hidden": true },
+			"v-3-0": { "hidden": true },
+			"v-5-4": { "hidden": true },
+			"h-6-1": { "hidden": true }
+		}
 	}
 }

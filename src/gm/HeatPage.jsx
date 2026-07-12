@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Flex,
 	Heading,
@@ -13,52 +13,52 @@ import {
 } from "../components";
 
 export default function HeatPage() {
+	const [strongHold, setStrongHold] = useState(false);
+	const toggleHold = () => {
+		setStrongHold(!strongHold);
+	};
 	return (
 		<>
 			{/* --- CREW XP --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Flex direction="column" gap="sm">
-						<Flex alignItems="baseline" gap="sm">
-							<Icon icon="angles-up" color="highlight" />
-							<Body color="highlight" bold>
-								Crew XP
-							</Body>
-						</Flex>
-						<Stepper amount="10" />
-						<Flex gap="sm">
-							<IconButton color="highlight" icon="minus" />
-							<IconButton color="highlight" icon="plus" />
-						</Flex>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="angles-up" color="highlight" />
+						<Body color="highlight" bold>
+							Crew XP
+						</Body>
 					</Flex>
-					<div>
-						<Caption color="highlight">Advancement</Caption>
-						<Body>Insert Advancement Here</Body>
-					</div>
+					<Stepper amount={10} />
+					<Flex gap="sm">
+						<IconButton color="highlight" icon="minus" />
+						<IconButton color="highlight" icon="plus" />
+					</Flex>
 				</Flex>
 			</Banner>
 
 			{/* --- TIER --- */}
 			<Banner>
 				<Flex direction="column" gap="sm">
-					<Flex gap="md" justifyContent="space-between">
+					<Flex gap="md" justifyContent="space-between" alignItems="baseline">
 						<Flex alignItems="baseline" gap="sm">
 							<Icon icon="crown" color="highlight" />
 							<Body color="highlight" bold>
 								Tier
 							</Body>
 						</Flex>
-						<Body bold>Weak</Body>
+						<Caption>{strongHold ? "Strong Hold" : "Weak Hold"}</Caption>
 					</Flex>
-					<Stepper amount="4" />
+					<Stepper amount={4} />
 					<Flex gap="md" justifyContent="space-between" alignItems="center">
 						<Flex gap="sm">
 							<IconButton color="highlight" icon="minus" />
 							<IconButton color="highlight" icon="plus" />
 						</Flex>
-						<Button icon="refresh" variant="secondary">
-							Weak
-						</Button>
+						<IconButton
+							icon="refresh"
+							variant="secondary"
+							onClick={toggleHold}
+						/>
 					</Flex>
 				</Flex>
 			</Banner>
@@ -66,52 +66,43 @@ export default function HeatPage() {
 			{/* --- REP --- */}
 			<Banner>
 				<Flex direction="column" gap="sm">
-					<Flex gap="md" justifyContent="space-between">
+					<Flex gap="md" justifyContent="space-between" alignItems="baseline">
 						<Flex alignItems="baseline" gap="sm">
 							<Icon icon="hand-fist" color="highlight" />
 							<Body color="highlight" bold>
 								Rep
 							</Body>
 						</Flex>
-						<Body color="hero" bold>
-							Turf
-						</Body>
+						<Caption color="hero">Turf</Caption>
 					</Flex>
-					<Stepper amount="12" />
-					<Flex gap="md" justifyContent="space-between" alignItems="center">
-						<Flex gap="sm">
-							<IconButton color="highlight" icon="minus" />
-							<IconButton color="highlight" icon="plus" />
-						</Flex>
-						<Flex gap="sm">
-							<IconButton color="hero" icon="minus" />
-							<IconButton color="hero" icon="plus" />
-						</Flex>
+					<Stepper amount={12} />
+					<Flex gap="sm">
+						<IconButton color="highlight" icon="minus" />
+						<IconButton color="highlight" icon="plus" />
 					</Flex>
 				</Flex>
 			</Banner>
 
 			{/* --- HEAT --- */}
 			<Banner>
-				<Flex direction="column" gap="sm">
-					<Flex gap="md" justifyContent="space-between">
+				<Flex gap="md" alignItems="flex-end">
+					<Flex direction="column" gap="sm" flexGrow={1}>
 						<Flex alignItems="baseline" gap="sm">
 							<Icon icon="fire" color="highlight" />
 							<Body color="highlight" bold>
 								Heat
 							</Body>
 						</Flex>
-						<Body color="heat" bold>
-							Wanted
-						</Body>
-					</Flex>
-					<Stepper amount="12" />
-					<Flex gap="md" justifyContent="space-between" alignItems="center">
+						<Stepper amount={9} />
 						<Flex gap="sm">
 							<IconButton color="highlight" icon="minus" />
 							<IconButton color="highlight" icon="plus" />
 						</Flex>
-						<Flex gap="sm">
+					</Flex>
+					<Flex direction="column" gap="sm" alignItems="flex-end">
+						<Caption color="heat">Wanted</Caption>
+						<Stepper amount={4} />
+						<Flex gap="sm" alignItems="flex-end">
 							<IconButton color="heat" icon="minus" />
 							<IconButton color="heat" icon="plus" />
 						</Flex>
@@ -128,7 +119,7 @@ export default function HeatPage() {
 							Coin
 						</Body>
 					</Flex>
-					<Stepper amount="16" />
+					<Stepper amount={16} />
 					<Flex gap="sm">
 						<IconButton color="highlight" icon="minus" />
 						<IconButton color="highlight" icon="plus" />

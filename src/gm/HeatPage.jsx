@@ -220,7 +220,11 @@ export default function HeatPage({ profile }) {
 							Coin
 						</Body>
 					</Flex>
-					<Stepper amount={16} activeCount={heatData.coin} />
+					<Stepper
+						amount={16}
+						activeCount={heatData.coin}
+						className={"stepper--coin"}
+					/>
 					<Flex gap="sm">
 						<IconButton
 							color="highlight"

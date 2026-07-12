@@ -394,6 +394,24 @@ svg {
 .stepper__segment.turf--active {
 	background-color: var(--hero);
 }
+.stepper--coin {
+	position: relative;
+}
+.stepper--coin::before,
+.stepper--coin::after {
+	content: "";
+	height: 15px;
+	width: 2px;
+	background-color: var(--lightest);
+	position: absolute;
+	top: -50%;
+}
+.stepper--coin::before {
+	left: calc(25% - 3px);
+}
+.stepper--coin::after {
+	left: calc(50% - 1px);
+}
 .selection-dot {
 	width: 12px;
 	height: 12px;

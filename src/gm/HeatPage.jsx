@@ -223,7 +223,13 @@ export default function HeatPage({ profile }) {
 					<Stepper
 						amount={16}
 						activeCount={heatData.coin}
-						className={"stepper--coin"}
+						className={
+							heatData.coin >= 8
+								? "stepper--coin vault-1 vault-2"
+								: heatData.coin >= 4
+									? "stepper--coin vault-1"
+									: "stepper--coin"
+						}
 					/>
 					<Flex gap="sm">
 						<IconButton

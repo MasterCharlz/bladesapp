@@ -412,6 +412,12 @@ svg {
 .stepper--coin::after {
 	left: calc(50% - 1px);
 }
+.stepper--coin.vault-1::before {
+	background-color: var(--highlight);
+}
+.stepper--coin.vault-2::after {
+	background-color: var(--highlight);
+}
 .selection-dot {
 	width: 12px;
 	height: 12px;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Flex, Heading, Card, Button, Body, Caption, Nav } from "./components";
 import Clocks from "./gm/Clocks";
@@ -7,7 +7,14 @@ import CrewManagement from "./gm/CrewManagement";
 export default function GMView() {
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const [activePage, setActivePage] = useState("clock-management");
+	const storageKey = `gm-view-page-${id}`;
+	const [activePage, setActivePage] = useState(() => {
+		try {
+			return localStorage.getItem(storageKey) || "clock-management";
+		} catch (e) {
+			return "clock-management";
+		}
+	});
 
 	const profilesRaw = (() => {
 		try {
@@ -17,7 +24,22 @@ export default function GMView() {
 		}
 	})();
 
-	const profile = profilesRaw.find((p) => String(p.id) === String(id));
+	const storedProfile = profilesRaw.find((p) => String(p.id) === String(id));
+	const [profile, setProfile] = useState(storedProfile);
+
+	useEffect(() => {
+		try {
+			localStorage.setItem(storageKey, activePage);
+		} catch (e) {
+			// ignore storage failures
+		}
+	}, [activePage, storageKey]);
+
+	const handleContactsChange = (contacts) => {
+		setProfile((currentProfile) =>
+			currentProfile ? { ...currentProfile, contacts } : currentProfile,
+		);
+	};
 
 	if (!profile) {
 		return (
@@ -46,8 +68,8 @@ export default function GMView() {
 				>
 					Back
 				</Button>
-				<Heading color="highlight" className={"align-right display-title"}>
-					Crew Name long long long
+				<Heading color="highlight" className={"align-right"}>
+					{profile.crew_name}
 				</Heading>
 			</Flex>
 			<Nav
@@ -63,10 +85,12 @@ export default function GMView() {
 				<Clocks
 					profileId={profile.id}
 					playerCharacters={profile.characters || []}
-					marginTop="lg"
 				/>
 			) : (
-				<CrewManagement profile={profile} />
+				<CrewManagement
+					profile={profile}
+					onContactsChange={handleContactsChange}
+				/>
 			)}
 		</>
 	);

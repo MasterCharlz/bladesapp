@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Flex, SubNav } from "../components";
 import HeatPage from "./HeatPage";
 import AbilitiesPage from "./AbilitiesPage";
 import ContactsPage from "./ContactsPage";
 
-export default function CrewManagement({ profile }) {
-	const [activeSubPage, setActiveSubPage] = useState("heat");
+export default function CrewManagement({ profile, onContactsChange }) {
+	const storageKey = `gm-crew-subpage-${profile?.id}`;
+	const [activeSubPage, setActiveSubPage] = useState(() => {
+		try {
+			return localStorage.getItem(storageKey) || "heat";
+		} catch (e) {
+			return "heat";
+		}
+	});
+
+	useEffect(() => {
+		try {
+			localStorage.setItem(storageKey, activeSubPage);
+		} catch (e) {
+			// ignore storage failures
+		}
+	}, [activeSubPage, storageKey]);
 
 	return (
 		<Flex direction="column" paddingBottom="xxl">
@@ -20,9 +35,11 @@ export default function CrewManagement({ profile }) {
 				fullWidth
 			/>
 
-			{activeSubPage === "heat" && <HeatPage />}
+			{activeSubPage === "heat" && <HeatPage profile={profile} />}
 			{activeSubPage === "abilities" && <AbilitiesPage profile={profile} />}
-			{activeSubPage === "contacts" && <ContactsPage profile={profile} />}
+			{activeSubPage === "contacts" && (
+				<ContactsPage profile={profile} onContactsChange={onContactsChange} />
+			)}
 		</Flex>
 	);
 }

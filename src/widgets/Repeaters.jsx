@@ -18,9 +18,13 @@ export function useProfileDataPersist(profileId, dataKey) {
 		(data) => {
 			if (!profileId) return;
 			try {
+				localStorage.setItem(
+					`profile-${dataKey}-${profileId}`,
+					JSON.stringify(data),
+				);
 				const raw = localStorage.getItem("profiles");
-				if (!raw) return;
-				const profiles = JSON.parse(raw);
+				const profiles = raw ? JSON.parse(raw) : [];
+				if (!Array.isArray(profiles)) return;
 				const index = profiles.findIndex(
 					(p) => String(p.id) === String(profileId),
 				);
@@ -34,6 +38,22 @@ export function useProfileDataPersist(profileId, dataKey) {
 		},
 		[profileId, dataKey],
 	);
+}
+
+function getPersistedProfileData(profileId, dataKey, fallback) {
+	if (!profileId) return fallback;
+	try {
+		const scopedRaw = localStorage.getItem(`profile-${dataKey}-${profileId}`);
+		if (scopedRaw !== null) return JSON.parse(scopedRaw);
+		const raw = localStorage.getItem("profiles");
+		const profiles = raw ? JSON.parse(raw) : [];
+		const profile = Array.isArray(profiles)
+			? profiles.find((item) => String(item.id) === String(profileId))
+			: null;
+		return profile?.[dataKey] ?? fallback;
+	} catch (e) {
+		return fallback;
+	}
 }
 
 // ============================================================================
@@ -171,12 +191,41 @@ export function useHuntingGroundsRepeater(profile, crewSpecialtiesData) {
 	};
 }
 
+export function useContactsRepeater(profile) {
+	const getContacts = useCallback(
+		() =>
+			getPersistedProfileData(profile?.id, "contacts") ??
+			profile?.contacts ??
+			[],
+		[profile?.id, profile?.contacts],
+	);
+	const [items, setItems] = useState(getContacts);
+	const persist = useProfileDataPersist(profile?.id, "contacts");
+
+	useEffect(() => {
+		setItems(getContacts());
+	}, [getContacts]);
+
+	const handleChange = useCallback(
+		(nextItems) => {
+			setItems(nextItems);
+			persist(nextItems);
+		},
+		[persist],
+	);
+
+	return {
+		items,
+		handleChange,
+	};
+}
+
 // ============================================================================
 // CLOCKS REPEATER UTILITIES
 // ============================================================================
 
 export const CLOCK_TYPES = [
-	{ id: "race", icon: "flag-checkered" },
+	{ id: "race", icon: "hourglass-half" },
 	{ id: "contested", icon: "scale-unbalanced" },
 	{ id: "danger", icon: "skull-crossbones" },
 ];

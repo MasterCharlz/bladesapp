@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
 	Flex,
 	Card,
 	Body,
+	Caption,
 	Banner,
 	Button,
 	IconButton,
@@ -16,6 +18,7 @@ import {
 import crewAbilitiesData from "./CrewAbilities.json";
 import crewSpecialtiesData from "./CrewSpecialties.json";
 import crewUpgradesData from "./CrewUpgrades.json";
+import lairNodesData from "./LairNodes.json";
 import {
 	renderBoldText,
 	useAbilitiesRepeater,
@@ -41,12 +44,7 @@ function UpgradeItem({ value, upgradeLookup, onDelete, onUpdate }) {
 	};
 
 	return (
-		<Flex
-			gap="md"
-			alignItems="flex-start"
-			padding="md"
-			className="repeater__row"
-		>
+		<Flex gap="md" alignItems="center" padding="md" className="repeater__row">
 			<Flex gap="sm" alignItems="center">
 				{Array.from({ length: selectedUpgrade?.pips || 0 }).map((_, i) => (
 					<Pip
@@ -68,6 +66,27 @@ function UpgradeItem({ value, upgradeLookup, onDelete, onUpdate }) {
 }
 
 export default function AbilitiesPage({ profile }) {
+	const navigate = useNavigate();
+	let savedLairStates = {};
+	try {
+		const saved = JSON.parse(
+			localStorage.getItem(`lair-map-${profile?.id}`) || "{}",
+		);
+		if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+			savedLairStates = saved;
+		}
+	} catch (e) {
+		// ignore storage failures
+	}
+
+	const activeLairNodes = (
+		lairNodesData.crew_type?.[profile?.crew_type] || []
+	).filter(
+		(node) =>
+			savedLairStates[node.id] === true &&
+			node.title !== "Lair" &&
+			node.title !== "Turf",
+	);
 	const {
 		items: abilityItems,
 		handleChange: handleAbilityChange,
@@ -92,10 +111,13 @@ export default function AbilitiesPage({ profile }) {
 		<>
 			{/* --- ABILITIES --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Body color="highlight">
-						<Icon icon="user-secret" /> Abilities
-					</Body>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="user-secret" color="highlight" />
+						<Body color="highlight" bold>
+							Abilities
+						</Body>
+					</Flex>
 					<Card backgroundColor="darker" noBorder padding="none">
 						<Repeater
 							controlledItems={abilityItems}
@@ -107,13 +129,11 @@ export default function AbilitiesPage({ profile }) {
 							formRenderer={({ value, setValue, onSave, onCancel }) => (
 								<Flex
 									direction="column"
-									gap="sm"
+									gap="xs"
 									padding="md"
 									className="repeater__row"
 								>
-									<Body color="highlight" bold>
-										New Crew Ability
-									</Body>
+									<Caption color="highlight">New Crew Ability</Caption>
 									<Select
 										value={value.ability}
 										onChange={(ability) => setValue({ ability })}
@@ -146,14 +166,14 @@ export default function AbilitiesPage({ profile }) {
 										padding="md"
 										className="repeater__row"
 									>
-										<div>
+										<Flex direction="column" gap="xs">
 											<Heading size={4} color="highlight">
 												{selectedAbility?.title || value.ability}
 											</Heading>
 											<Body className={"ability-description"}>
 												{renderDescription(selectedAbility?.Description || "")}
 											</Body>
-										</div>
+										</Flex>
 										<IconButton
 											icon="trash-alt"
 											variant="tertiary"
@@ -170,10 +190,13 @@ export default function AbilitiesPage({ profile }) {
 
 			{/* --- UPGRADES --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Body color="highlight">
-						<Icon icon="gears" /> Upgrades
-					</Body>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="gears" color="highlight" />
+						<Body color="highlight" bold>
+							Upgrades
+						</Body>
+					</Flex>
 					<Card backgroundColor="darker" noBorder padding="none">
 						<Repeater
 							controlledItems={upgradeItems}
@@ -185,13 +208,11 @@ export default function AbilitiesPage({ profile }) {
 							formRenderer={({ value, setValue, onSave, onCancel }) => (
 								<Flex
 									direction="column"
-									gap="sm"
+									gap="xs"
 									padding="md"
 									className="repeater__row"
 								>
-									<Body color="highlight" bold>
-										New Crew Upgrade
-									</Body>
+									<Caption color="highlight">New Crew Upgrade</Caption>
 									<Select
 										value={value.upgrade}
 										onChange={(upgrade) => setValue({ upgrade })}
@@ -229,10 +250,13 @@ export default function AbilitiesPage({ profile }) {
 
 			{/* --- HUNTING GROUNDS --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Body color="highlight">
-						<Icon icon="map-location-dot" /> Hunting Grounds
-					</Body>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="map-location-dot" color="highlight" />
+						<Body color="highlight" bold>
+							Hunting Grounds
+						</Body>
+					</Flex>
 					<Card backgroundColor="darker" noBorder padding="none">
 						<Repeater
 							controlledItems={huntingGroundItems}
@@ -244,24 +268,26 @@ export default function AbilitiesPage({ profile }) {
 							formRenderer={({ value, setValue, onSave, onCancel }) => (
 								<Flex
 									direction="column"
-									gap="sm"
+									gap="xs"
 									padding="md"
 									className="repeater__row"
 								>
-									<Body color="highlight" bold>
-										New Hunting Ground
-									</Body>
-									<TextInput
-										value={value.name}
-										onChange={(name) => setValue({ ...value, name })}
-										placeholder="Enter Name"
-									/>
-									<Select
-										value={value.specialty}
-										onChange={(specialty) => setValue({ ...value, specialty })}
-										options={specialtyOptions}
-										placeholder="Select a specialty..."
-									/>
+									<Caption color="highlight">New Hunting Ground</Caption>
+									<Flex direction="column" gap="sm">
+										<TextInput
+											value={value.name}
+											onChange={(name) => setValue({ ...value, name })}
+											placeholder="Enter Name"
+										/>
+										<Select
+											value={value.specialty}
+											onChange={(specialty) =>
+												setValue({ ...value, specialty })
+											}
+											options={specialtyOptions}
+											placeholder="Select a specialty..."
+										/>
+									</Flex>
 									<Flex gap="sm" justifyContent="space-between" paddingTop="md">
 										<Button
 											icon="check"
@@ -291,9 +317,9 @@ export default function AbilitiesPage({ profile }) {
 									className="repeater__row"
 								>
 									<Flex direction="column" gap="xs">
-										<Body color="highlight" bold>
+										<Heading size={4} color="highlight">
 											{value.name}
-										</Body>
+										</Heading>
 										<Body>{value.specialty}</Body>
 									</Flex>
 									<IconButton
@@ -311,12 +337,34 @@ export default function AbilitiesPage({ profile }) {
 
 			{/* --- LAIR --- */}
 			<Banner>
-				<Flex direction="column" gap="md">
-					<Body color="highlight">
-						<Icon icon="chess-rook" /> Lair Bonuses
-					</Body>
+				<Flex direction="column" gap="sm">
+					<Flex alignItems="baseline" gap="sm">
+						<Icon icon="chess-rook" color="highlight" />
+						<Body color="highlight" bold>
+							Lair Bonuses
+						</Body>
+					</Flex>
 					<Card backgroundColor="darker" noBorder padding="none">
-						<Button icon="magnifying-glass" variant="tertiary" fullWidth>
+						{activeLairNodes.map((node) => (
+							<Flex
+								key={node.id}
+								className="repeater__row"
+								padding="md"
+								direction="column"
+							>
+								<Heading size={4} color="highlight">
+									{node.title}
+								</Heading>
+								<Body>{node.description}</Body>
+							</Flex>
+						))}
+						<Button
+							icon="magnifying-glass"
+							variant="tertiary"
+							fullWidth
+							onClick={() => navigate(`/gm/${profile?.id}/lair-map`)}
+							padding="md"
+						>
 							View Map
 						</Button>
 					</Card>

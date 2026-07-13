@@ -10,6 +10,7 @@ import {
 	Button,
 	IconButton,
 	Stepper,
+	Heading,
 } from "../components";
 import {
 	useClocksRepeater,
@@ -37,19 +38,16 @@ export default function Clocks({ playerCharacters = [], profileId }) {
 					row.editing ? (
 						<Banner key={row.id}>
 							<Flex direction="column" gap="md">
-								<Flex direction="column" gap="sm">
-									<Flex alignItems="center" gap="sm">
-										<Icon icon="stopwatch" color="highlight" />
-										<Caption color="highlight">New Clock</Caption>
-									</Flex>
+								<Flex direction="column" gap="xs">
+									<Caption color="highlight">New Clock</Caption>
 									<TextInput
 										placeholder="Enter Clock Name"
 										value={row.name}
 										onChange={(name) => updateRow(row.id, { name })}
 									/>
 								</Flex>
-								<Flex direction="column" gap="sm">
-									<Caption>Type</Caption>
+								<Flex direction="column" gap="xs">
+									<Caption color="highlight">Type</Caption>
 									<Flex gap="sm">
 										{CLOCK_TYPES.map((option) => (
 											<Button
@@ -65,8 +63,8 @@ export default function Clocks({ playerCharacters = [], profileId }) {
 										))}
 									</Flex>
 								</Flex>
-								<Flex direction="column" gap="sm">
-									<Caption>Slices</Caption>
+								<Flex direction="column" gap="xs">
+									<Caption color="highlight">Slices</Caption>
 									<Flex gap="sm">
 										{CLOCK_SLICES.map((slice) => (
 											<Button
@@ -81,8 +79,8 @@ export default function Clocks({ playerCharacters = [], profileId }) {
 										))}
 									</Flex>
 								</Flex>
-								<Flex direction="column" gap="sm">
-									<Caption>Player</Caption>
+								<Flex direction="column" gap="xs">
+									<Caption color="highlight">Player</Caption>
 									<Select
 										value={row.player}
 										onChange={(player) => updateRow(row.id, { player })}
@@ -119,17 +117,23 @@ export default function Clocks({ playerCharacters = [], profileId }) {
 								<Flex direction="column" fullWidth>
 									<Flex
 										alignItems="baseline"
-										gap="sm"
+										gap="md"
 										justifyContent="space-between"
 									>
-										<Body color="highlight">
-											<Icon icon={getClockIcon(row.type)} /> {row.name}
-										</Body>
-										<Caption color="highlight">
-											{row.player || "Player"}
-										</Caption>
+										<Flex alignItems="baseline" gap="sm">
+											<Icon icon={getClockIcon(row.type)} color="highlight" />
+											<Body color="highlight" bold>
+												{row.name}
+											</Body>
+										</Flex>
+
+										<Caption>{row.player || "Player"}</Caption>
 									</Flex>
-									<Stepper amount={row.slices} activeCount={row.progress} />
+									<Stepper
+										amount={row.slices}
+										activeCount={row.progress}
+										className={row.type}
+									/>
 								</Flex>
 								<Flex gap="sm">
 									<IconButton

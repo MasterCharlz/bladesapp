@@ -20,22 +20,10 @@
 				"pips": 1
 			},
 			{
-				"value": "elite_skulks",
-				"type": "Assassin",
-				"description": "Elite Skulks",
-				"pips": 1
-			},
-			{
 				"value": "elite_thugs",
 				"type": "Assassin",
 				"description": "Elite Thugs",
 				"pips": 1
-			},
-			{
-				"value": "hardened",
-				"type": "Assassin",
-				"description": "Hardened (+1 trauma box)",
-				"pips": 3
 			},
 			{
 				"value": "hardened",

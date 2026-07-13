@@ -63,11 +63,13 @@ svg {
 	padding: 0;
 	height: 100vh;
 }
-.display-title {
-	font-family: "New Rocker", serif;
-}
 
 .heading {
+	font-family: "New Rocker", serif;
+	font-weight: 100;
+}
+.heading--1 {
+	font-size: 40px;
 }
 .heading--2 {
 	font-size: 32px;
@@ -76,7 +78,7 @@ svg {
 	font-size: 20px;
 }
 .heading--4 {
-	font-size: 16px;
+	font-size: 20px;
 }
 
 .body-text {
@@ -84,15 +86,18 @@ svg {
 	font-weight: 500;
 	font-size: 16px;
 	color: var(--light);
-	line-height: 1.5;
+	line-height: 1.35;
 }
 .body-text--bold {
-	font-weight: 800;
+	font-weight: 700;
+	letter-spacing: 0.035em;
 }
 .caption {
-	font-size: 14px;
+	font-size: 10px;
+	font-weight: 900;
 	color: var(--light);
 	letter-spacing: 0.08em;
+	text-transform: uppercase;
 }
 .heading.align-right,
 .body-text.align-right,
@@ -186,6 +191,14 @@ svg {
 	cursor: pointer;
 	border: none;
 }
+.icon-btn--rotated i {
+	transform: rotate(180deg);
+	transition: transform 200ms ease;
+}
+
+.icon-btn i {
+	transition: transform 200ms ease;
+}
 
 .pip {
 	width: 12px;
@@ -251,6 +264,8 @@ svg {
 	bottom: 0;
 	left: 0;
 	right: 0;
+	z-index: 1000;
+	box-shadow: 0 0 20px -5px rgba(15, 10, 20, 0.5);
 }
 .sub-nav {
 	display: flex;
@@ -372,6 +387,48 @@ svg {
 	border-radius: 4px;
 	background-color: var(--lightest);
 }
+.stepper__segment--active {
+	background-color: var(--highlight);
+}
+.stepper--heat .stepper__segment--active {
+	background-color: var(--heat);
+}
+.stepper__segment.turf--active {
+	background-color: var(--hero);
+}
+.stepper--coin {
+	position: relative;
+}
+.stepper--coin::before,
+.stepper--coin::after {
+	content: "";
+	height: 15px;
+	width: 2px;
+	background-color: var(--lightest);
+	position: absolute;
+	top: -50%;
+}
+.stepper--coin::before {
+	left: calc(25% - 3px);
+}
+.stepper--coin::after {
+	left: calc(50% - 1px);
+}
+.stepper--coin.vault-1::before {
+	background-color: var(--highlight);
+}
+.stepper--coin.vault-2::after {
+	background-color: var(--highlight);
+}
+.stepper.contested .stepper__segment {
+	background-color: var(--heat);
+}
+.stepper.contested .stepper__segment--active {
+	background-color: var(--hero);
+}
+.stepper.danger .stepper__segment--active {
+	background-color: var(--heat);
+}
 .selection-dot {
 	width: 12px;
 	height: 12px;
@@ -388,4 +445,64 @@ svg {
 }
 .grid {
 	display: grid;
+}
+
+.lair-grid {
+	justify-items: center;
+	align-items: center;
+	grid-template-columns: 115px 20px 115px 20px 115px !important;
+	grid-template-rows: 115px 20px 115px 20px 115px 20px 115px !important;
+}
+.lair-node {
+	width: 115px;
+	height: 115px;
+	background: var(--lightest);
+	border-radius: 4px;
+	line-height: 1.1;
+	padding: 8px;
+}
+
+.lair-node--active {
+	background: var(--highlight);
+}
+.lair-node .heading,
+.lair-node .caption {
+	font-family: "Nunito Sans", sans-serif;
+}
+.lair-node .heading {
+	color: var(--highlight);
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+.lair-node .caption {
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: initial;
+}
+.lair-node--active .heading,
+.lair-node--active .caption {
+	color: var(--dark);
+	font-weight: 900;
+}
+.lair-node--inactive .heading,
+.lair-node--inactive .caption {
+}
+.lair-connector {
+	width: 20px;
+	height: 20px;
+	background: var(--lightest);
+}
+.lair-connector--active {
+	background: var(--highlight);
+}
+.lair-connector--hidden {
+	visibility: hidden;
+}
+.lair-connector--horizontal {
+	height: 20px;
+}
+.lair-connector--vertical {
+	width: 20px;
 }

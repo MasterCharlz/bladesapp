@@ -8,7 +8,7 @@ import {
 	Caption,
 	Heading,
 } from "../components";
-import lairNodesData from "./LairNodes.json";
+import lairNodesData from "../data/gm/LairNodes.json";
 
 export default function LairMap() {
 	const navigate = useNavigate();

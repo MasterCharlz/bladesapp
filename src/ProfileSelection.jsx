@@ -10,7 +10,7 @@ import {
 	Caption,
 } from "./components";
 import PlayerCharacterRepeater from "./widgets/Repeaters";
-import profilesData from "./profiles.json";
+import profilesData from "./data/profiles.json";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfileSelection() {

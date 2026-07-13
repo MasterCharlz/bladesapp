@@ -15,10 +15,10 @@ import {
 	Heading,
 	Pip,
 } from "../components";
-import crewAbilitiesData from "./CrewAbilities.json";
-import crewSpecialtiesData from "./CrewSpecialties.json";
-import crewUpgradesData from "./CrewUpgrades.json";
-import lairNodesData from "./LairNodes.json";
+import crewAbilitiesData from "../data/gm/CrewAbilities.json";
+import crewSpecialtiesData from "../data/gm/CrewSpecialties.json";
+import crewUpgradesData from "../data/gm/CrewUpgrades.json";
+import lairNodesData from "../data/gm/LairNodes.json";
 import {
 	renderBoldText,
 	useAbilitiesRepeater,

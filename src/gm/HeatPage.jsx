@@ -12,7 +12,7 @@ import {
 	Button,
 } from "../components";
 import { useProfileDataPersist } from "../widgets/Repeaters";
-import lairNodesData from "./LairNodes.json";
+import lairNodesData from "../data/gm/LairNodes.json";
 
 const DEFAULT_HEAT_DATA = {
 	crewXp: 0,

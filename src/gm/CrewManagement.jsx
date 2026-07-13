@@ -26,9 +26,9 @@ export default function CrewManagement({ profile, onContactsChange }) {
 		<Flex direction="column" paddingBottom="xxl">
 			<SubNav
 				items={[
-					{ id: "heat", icon: "fire" },
 					{ id: "abilities", icon: "users-gear" },
 					{ id: "contacts", icon: "address-book" },
+					{ id: "heat", icon: "fire" },
 				]}
 				activeId={activeSubPage}
 				onChange={setActiveSubPage}

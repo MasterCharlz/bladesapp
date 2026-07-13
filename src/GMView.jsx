@@ -77,8 +77,8 @@ export default function GMView() {
 				activeId={activePage}
 				onChange={setActivePage}
 				items={[
-					{ id: "clock-management", icon: "stopwatch" },
 					{ id: "crew-management", icon: "people-group" },
+					{ id: "clock-management", icon: "stopwatch" },
 				]}
 			/>
 			{activePage === "clock-management" ? (

@@ -24,7 +24,8 @@ export default function GMView() {
 		}
 	})();
 
-	const profile = profilesRaw.find((p) => String(p.id) === String(id));
+	const storedProfile = profilesRaw.find((p) => String(p.id) === String(id));
+	const [profile, setProfile] = useState(storedProfile);
 
 	useEffect(() => {
 		try {
@@ -33,6 +34,12 @@ export default function GMView() {
 			// ignore storage failures
 		}
 	}, [activePage, storageKey]);
+
+	const handleContactsChange = (contacts) => {
+		setProfile((currentProfile) =>
+			currentProfile ? { ...currentProfile, contacts } : currentProfile,
+		);
+	};
 
 	if (!profile) {
 		return (
@@ -80,7 +87,10 @@ export default function GMView() {
 					playerCharacters={profile.characters || []}
 				/>
 			) : (
-				<CrewManagement profile={profile} />
+				<CrewManagement
+					profile={profile}
+					onContactsChange={handleContactsChange}
+				/>
 			)}
 		</>
 	);

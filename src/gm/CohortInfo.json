@@ -1,0 +1,5 @@
+{
+	"cohort_type": ["Adept", "Rook", "Rover", "Skulk", "Thug"],
+	"cohort_edges": ["Fearsome", "Independent", "Loyal", "Tenacious"],
+	"cohort_flaws": ["Principled", "Savage", "Unreliable", "Wild"]
+}

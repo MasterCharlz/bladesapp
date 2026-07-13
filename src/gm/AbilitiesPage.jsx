@@ -363,6 +363,7 @@ export default function AbilitiesPage({ profile }) {
 							variant="tertiary"
 							fullWidth
 							onClick={() => navigate(`/gm/${profile?.id}/lair-map`)}
+							padding="md"
 						>
 							View Map
 						</Button>

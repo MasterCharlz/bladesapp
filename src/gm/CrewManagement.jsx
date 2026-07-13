@@ -4,7 +4,7 @@ import HeatPage from "./HeatPage";
 import AbilitiesPage from "./AbilitiesPage";
 import ContactsPage from "./ContactsPage";
 
-export default function CrewManagement({ profile }) {
+export default function CrewManagement({ profile, onContactsChange }) {
 	const storageKey = `gm-crew-subpage-${profile?.id}`;
 	const [activeSubPage, setActiveSubPage] = useState(() => {
 		try {
@@ -35,9 +35,11 @@ export default function CrewManagement({ profile }) {
 				fullWidth
 			/>
 
-			{activeSubPage === "heat" && <HeatPage />}
+			{activeSubPage === "heat" && <HeatPage profile={profile} />}
 			{activeSubPage === "abilities" && <AbilitiesPage profile={profile} />}
-			{activeSubPage === "contacts" && <ContactsPage profile={profile} />}
+			{activeSubPage === "contacts" && (
+				<ContactsPage profile={profile} onContactsChange={onContactsChange} />
+			)}
 		</Flex>
 	);
 }

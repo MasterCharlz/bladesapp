@@ -94,87 +94,93 @@ export default function ProfileSelection() {
 			paddingY="xl"
 		>
 			<img src="../src/images/bitd-logo.svg" />
-			{profiles.map((profile) => (
-				<Card key={profile.id} padding="none" fullWidth noBorder>
-					<Collapsible>
-						<Collapsible.Header>
-							<Flex gap="md" justifyContent="space-between" alignItems="center">
-								<Heading color="highlight" size={3}>
-									{profile.crew_name || "Untitled Crew"}
-								</Heading>
-								<Caption>{profile.crew_type || "No Type"}</Caption>
-							</Flex>
-						</Collapsible.Header>
-						<Collapsible.Body>
-							<Flex marginBottom="md">
-								<Button
-									icon="dice"
-									onClick={() => navigate(`/gm/${profile.id}`)}
+			<Flex direction="column" gap="sm" fullWidth>
+				{profiles.map((profile) => (
+					<Card key={profile.id} padding="none" fullWidth noBorder>
+						<Collapsible>
+							<Collapsible.Header>
+								<Flex
+									gap="md"
+									justifyContent="space-between"
+									alignItems="center"
 								>
-									GM View
-								</Button>
-								<Button
-									variant="tertiary"
-									marginLeft="auto"
-									onClick={() => handleDeleteProfile(profile.id)}
-								>
-									Delete Crew
-								</Button>
-							</Flex>
-							<Card noBorder padding="none" backgroundColor="darker">
-								<PlayerCharacterRepeater
-									profileId={profile.id}
-									initialItems={profile.characters || []}
-									onPersist={(nextItems) =>
-										handleUpdateCharacters(profile.id, nextItems)
-									}
-								/>
-							</Card>
-						</Collapsible.Body>
-					</Collapsible>
-				</Card>
-			))}
+									<Heading color="highlight" size={3}>
+										{profile.crew_name || "Untitled Crew"}
+									</Heading>
+									<Caption>{profile.crew_type || "No Type"}</Caption>
+								</Flex>
+							</Collapsible.Header>
+							<Collapsible.Body>
+								<Flex marginBottom="md">
+									<Button
+										icon="dice"
+										onClick={() => navigate(`/gm/${profile.id}`)}
+									>
+										GM View
+									</Button>
+									<Button
+										variant="tertiary"
+										marginLeft="auto"
+										onClick={() => handleDeleteProfile(profile.id)}
+									>
+										Delete Crew
+									</Button>
+								</Flex>
+								<Card noBorder padding="none" backgroundColor="darker">
+									<PlayerCharacterRepeater
+										profileId={profile.id}
+										initialItems={profile.characters || []}
+										onPersist={(nextItems) =>
+											handleUpdateCharacters(profile.id, nextItems)
+										}
+									/>
+								</Card>
+							</Collapsible.Body>
+						</Collapsible>
+					</Card>
+				))}
 
-			{showCreateForm && (
-				<Card borderColor="highlight" fullWidth>
-					<TextInput
-						placeholder="Crew Name"
-						value={newProfile.crew_name}
-						onChange={(value) =>
-							setNewProfile((prev) => ({ ...prev, crew_name: value }))
-						}
-						marginBottom="md"
-					/>
-					<Select
-						options={[
-							"Assassins",
-							"Bravos",
-							"Cult",
-							"Hawkers",
-							"Smugglers",
-							"Shadows",
-						]}
-						value={newProfile.crew_type}
-						onChange={(value) =>
-							setNewProfile((prev) => ({ ...prev, crew_type: value }))
-						}
-						placeholder="Select Type..."
-						marginBottom="md"
-					/>
-					<Flex>
-						<Button variant="primary" icon="check" onClick={handleCreateCrew}>
-							Create Crew
-						</Button>
-						<Button
-							variant="tertiary"
-							marginLeft="auto"
-							onClick={handleCancelCreate}
-						>
-							Cancel
-						</Button>
-					</Flex>
-				</Card>
-			)}
+				{showCreateForm && (
+					<Card borderColor="highlight" fullWidth>
+						<TextInput
+							placeholder="Crew Name"
+							value={newProfile.crew_name}
+							onChange={(value) =>
+								setNewProfile((prev) => ({ ...prev, crew_name: value }))
+							}
+							marginBottom="md"
+						/>
+						<Select
+							options={[
+								"Assassins",
+								"Bravos",
+								"Cult",
+								"Hawkers",
+								"Smugglers",
+								"Shadows",
+							]}
+							value={newProfile.crew_type}
+							onChange={(value) =>
+								setNewProfile((prev) => ({ ...prev, crew_type: value }))
+							}
+							placeholder="Select Type..."
+							marginBottom="md"
+						/>
+						<Flex>
+							<Button variant="primary" icon="check" onClick={handleCreateCrew}>
+								Create Crew
+							</Button>
+							<Button
+								variant="tertiary"
+								marginLeft="auto"
+								onClick={handleCancelCreate}
+							>
+								Cancel
+							</Button>
+						</Flex>
+					</Card>
+				)}
+			</Flex>
 
 			<Button
 				icon="plus"

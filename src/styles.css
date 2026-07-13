@@ -191,6 +191,14 @@ svg {
 	cursor: pointer;
 	border: none;
 }
+.icon-btn--rotated i {
+	transform: rotate(180deg);
+	transition: transform 200ms ease;
+}
+
+.icon-btn i {
+	transition: transform 200ms ease;
+}
 
 .pip {
 	width: 12px;
@@ -256,6 +264,8 @@ svg {
 	bottom: 0;
 	left: 0;
 	right: 0;
+	z-index: 1000;
+	box-shadow: 0 0 20px -5px rgba(15, 10, 20, 0.5);
 }
 .sub-nav {
 	display: flex;
@@ -371,22 +381,53 @@ svg {
 	width: 100%;
 	gap: 8px;
 }
-/* Update these with an active stateS */
-.stepper.race {
-}
-.stepper.contested {
-}
-.stepper.danger .stepper__segment {
-}
-.stepper__segment.turf {
-}
-.stepper__segment.wanted {
-}
 .stepper__segment {
 	flex: 1;
 	height: 8px;
 	border-radius: 4px;
 	background-color: var(--lightest);
+}
+.stepper__segment--active {
+	background-color: var(--highlight);
+}
+.stepper--heat .stepper__segment--active {
+	background-color: var(--heat);
+}
+.stepper__segment.turf--active {
+	background-color: var(--hero);
+}
+.stepper--coin {
+	position: relative;
+}
+.stepper--coin::before,
+.stepper--coin::after {
+	content: "";
+	height: 15px;
+	width: 2px;
+	background-color: var(--lightest);
+	position: absolute;
+	top: -50%;
+}
+.stepper--coin::before {
+	left: calc(25% - 3px);
+}
+.stepper--coin::after {
+	left: calc(50% - 1px);
+}
+.stepper--coin.vault-1::before {
+	background-color: var(--highlight);
+}
+.stepper--coin.vault-2::after {
+	background-color: var(--highlight);
+}
+.stepper.contested .stepper__segment {
+	background-color: var(--heat);
+}
+.stepper.contested .stepper__segment--active {
+	background-color: var(--hero);
+}
+.stepper.danger .stepper__segment--active {
+	background-color: var(--heat);
 }
 .selection-dot {
 	width: 12px;

@@ -433,72 +433,74 @@ export default function ContactsPage({
 									<Flex
 										key={key}
 										gap="md"
-										alignItems="flex-start"
+										alignItems="stretch"
 										padding="md"
 										className="repeater__row"
+										direction="column"
+										gap="sm"
 									>
-										<Flex direction="column" gap="sm" flexGrow={1}>
-											<Flex
-												gap="sm"
-												alignItems="baseline"
-												justifyContent="space-between"
-											>
-												<Body color="highlight" bold>
+										<Flex
+											gap="sm"
+											alignItems="flex-end"
+											justifyContent="space-between"
+										>
+											<Flex direction="column">
+												<Body bold color="highlight">
 													{value.name}
 												</Body>
 												<Caption>{value.title}</Caption>
 											</Flex>
-											<Stepper
-												amount={6}
-												activeCount={reputation}
-												type="contested"
-												className="contested"
-											/>
-											<Flex gap="sm" justifyContent="space-between">
-												<Flex gap="sm">
-													<IconButton
-														color="highlight"
-														icon="minus"
-														variant="secondary"
-														onClick={() =>
-															onUpdate({
-																...value,
-																reputation: Math.max(0, reputation - 1),
-															})
-														}
-													/>
-
-													<IconButton
-														color="highlight"
-														icon="plus"
-														variant="secondary"
-														onClick={() =>
-															onUpdate({
-																...value,
-																reputation: Math.min(6, reputation + 1),
-															})
-														}
-													/>
-												</Flex>
-												<Flex gap="sm" alignItems="center">
-													<Caption color="highlight">Rep</Caption>
-													<Body
-														bold
-														color={
-															Math.min(value.reputation - 3) < 0 ? "heat" : ""
-														}
-													>
-														{Math.min(value.reputation - 3)}
-													</Body>
-												</Flex>
+											<Flex gap="sm" alignItems="center">
+												<Caption>Rep</Caption>
+												<Body
+													bold
+													color={
+														Math.min(value.reputation - 3) < 0 ? "heat" : ""
+													}
+												>
+													{Math.min(value.reputation - 3)}
+												</Body>
 											</Flex>
 										</Flex>
-										<IconButton
-											icon="trash-alt"
-											variant="secondary"
-											onClick={onDelete}
-											color="highlight"
+										<Stepper
+											amount={6}
+											activeCount={reputation}
+											type="contested"
+											className="contested"
 										/>
+										<Flex gap="sm" justifyContent="space-between">
+											<Flex gap="sm">
+												<IconButton
+													color="highlight"
+													icon="minus"
+													variant="secondary"
+													onClick={() =>
+														onUpdate({
+															...value,
+															reputation: Math.max(0, reputation - 1),
+														})
+													}
+												/>
+
+												<IconButton
+													color="highlight"
+													icon="plus"
+													variant="secondary"
+													onClick={() =>
+														onUpdate({
+															...value,
+															reputation: Math.min(6, reputation + 1),
+														})
+													}
+												/>
+											</Flex>
+											<IconButton
+												icon="trash-alt"
+												variant="secondary"
+												onClick={onDelete}
+												color="highlight"
+											/>
+										</Flex>
 									</Flex>
 								);
 							}}

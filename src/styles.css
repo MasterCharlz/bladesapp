@@ -99,6 +99,10 @@ svg {
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 }
+.caption.subcaption {
+	text-transform: initial;
+	font-weight: 700;
+}
 .heading.align-right,
 .body-text.align-right,
 .caption.align-right {

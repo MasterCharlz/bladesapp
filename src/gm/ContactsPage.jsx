@@ -70,28 +70,33 @@ export default function ContactsPage({
 								expertise: "",
 								edges: [],
 								flaws: [],
+								danger: 0,
+								armor: true,
 							}}
 							addButtonText="Cohort"
 							addIcon="plus"
 							formRenderer={({ value, setValue, onSave, onCancel }) => (
 								<Flex
 									direction="column"
-									gap="sm"
+									gap="md"
 									padding="md"
 									className="repeater__row"
 								>
-									<Caption color="highlight">New Cohort</Caption>
-									<TextInput
-										value={value.name}
-										onChange={(name) => setValue({ ...value, name })}
-										placeholder="Enter Name"
-									/>
+									<Flex direction="column" gap="xs">
+										<Caption color="highlight">New Cohort</Caption>
+										<TextInput
+											value={value.name}
+											onChange={(name) => setValue({ ...value, name })}
+											placeholder="Enter Name"
+										/>
+									</Flex>
 									<Flex direction="column" gap="xs">
 										<Caption color="highlight">Type</Caption>
 										<Flex gap="sm">
 											<Button
 												variant={value.type === "gang" ? "active" : "secondary"}
 												fullWidth
+												icon="people-group"
 												onClick={() =>
 													setValue({
 														...value,
@@ -107,6 +112,7 @@ export default function ContactsPage({
 													value.type === "expert" ? "active" : "secondary"
 												}
 												fullWidth
+												icon="person"
 												onClick={() =>
 													setValue({
 														...value,
@@ -213,6 +219,8 @@ export default function ContactsPage({
 													expertise: value.type === "expert" ? expertise : "",
 													edges: value.edges,
 													flaws: value.flaws,
+													danger: Number(value.danger ?? 0),
+													armor: value.armor ?? false,
 												});
 											}}
 										>
@@ -224,48 +232,135 @@ export default function ContactsPage({
 									</Flex>
 								</Flex>
 							)}
-							itemRenderer={({ key, value, onDelete }) => (
-								<Flex
-									key={key}
-									gap="md"
-									alignItems="flex-start"
-									justifyContent="space-between"
-									padding="md"
-									className="repeater__row"
-								>
-									<Flex direction="column" gap="xs" flexGrow={1}>
-										<Flex
-											gap="sm"
-											alignItems="baseline"
-											justifyContent="space-between"
-										>
-											<Body color="highlight" bold>
-												{value.name}
-											</Body>
-											<Caption>
-												{value.type === "gang" ? "Gang" : "Expert"}
-											</Caption>
+							itemRenderer={({ key, value, onDelete, onUpdate }) => {
+								const danger = Math.max(
+									0,
+									Math.min(6, Number(value.danger ?? 0)),
+								);
+								const armor = value.armor ?? false;
+
+								return (
+									<Flex
+										key={key}
+										direction="column"
+										gap="sm"
+										padding="md"
+										className="repeater__row"
+									>
+										<Flex direction="column">
+											<Flex alignItems="baseline" gap="sm">
+												<Body
+													color={
+														value.danger < 4 ? "highlight" : "highlight_subtle"
+													}
+													bold
+												>
+													{value.name}
+												</Body>
+												<Caption color={value.danger < 4 ? "" : "lightest"}>
+													{value.type === "gang"
+														? value.gang_type
+														: value.expertise}{" "}
+													{value.type === "gang" ? "Gang" : "Expert"}
+												</Caption>
+											</Flex>
+											<Flex gap="xs">
+												<Caption
+													className={"subcaption"}
+													color={value.danger < 4 ? "" : "lightest"}
+												>
+													{value.edges.join(", ")}
+													{", "}
+													{value.flaws.join(", ")}
+												</Caption>
+											</Flex>
 										</Flex>
-										<Caption>
-											{value.type === "gang"
-												? value.gang_type
-												: value.expertise}
-										</Caption>
-										{value.edges?.length > 0 && (
-											<Caption>Edges: {value.edges.join(", ")}</Caption>
-										)}
-										{value.flaws?.length > 0 && (
-											<Caption>Flaws: {value.flaws.join(", ")}</Caption>
-										)}
+										<Flex gap="sm" alignItems="center">
+											<IconButton
+												color="heat"
+												icon="minus"
+												variant="secondary"
+												onClick={() =>
+													onUpdate({
+														...value,
+														danger: Math.max(0, danger - 1),
+													})
+												}
+											/>
+											<IconButton
+												color="heat"
+												icon="plus"
+												variant="secondary"
+												onClick={() =>
+													onUpdate({
+														...value,
+														danger: Math.min(4, danger + 1),
+													})
+												}
+											/>
+											<Flex
+												direction="column"
+												gap="xs"
+												flexGrow={1}
+												justifyContent="space-around"
+											>
+												<Stepper
+													amount={4}
+													activeCount={danger}
+													className="stepper--heat"
+												/>
+												<Flex gap="sm">
+													<Caption
+														className="align-center"
+														fullWidth
+														color={value.danger > 0 ? "heat" : "lightest"}
+													>
+														-Fct
+													</Caption>
+													<Caption
+														className="align-center"
+														fullWidth
+														color={value.danger > 1 ? "heat" : "lightest"}
+													>
+														-1d
+													</Caption>
+													<Caption
+														className="align-center"
+														fullWidth
+														color={value.danger > 2 ? "heat" : "lightest"}
+													>
+														Help
+													</Caption>
+													<Caption
+														className="align-center"
+														fullWidth
+														color={value.danger > 3 ? "heat" : "lightest"}
+													>
+														Dead
+													</Caption>
+												</Flex>
+											</Flex>
+											<IconButton
+												icon="shield-alt"
+												variant="secondary"
+												onClick={() =>
+													onUpdate({
+														...value,
+														armor: !armor,
+													})
+												}
+												color={armor ? "hero" : "darker"}
+											/>
+											<IconButton
+												icon="trash-alt"
+												variant="secondary"
+												onClick={onDelete}
+												color="highlight"
+											/>
+										</Flex>
 									</Flex>
-									<IconButton
-										icon="trash-alt"
-										variant="secondary"
-										onClick={onDelete}
-										color="highlight"
-									/>
-								</Flex>
-							)}
+								);
+							}}
 						/>
 					</Card>
 				</Flex>

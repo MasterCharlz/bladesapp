@@ -12,12 +12,35 @@ import {
 	Icon,
 	Repeater,
 	TextInput,
+	Select,
 } from "../components";
-import { useContactsRepeater } from "../widgets/Repeaters";
+import cohortInfo from "../data/gm/CohortInfo.json";
+import { useContactsRepeater, useCohortsRepeater } from "../widgets/Repeaters";
 
-export default function ContactsPage({ profile, onContactsChange }) {
+function toggleOption(options, option) {
+	return options.includes(option)
+		? options.filter((item) => item !== option)
+		: [...options, option];
+}
+
+export default function ContactsPage({
+	profile,
+	onContactsChange,
+	onCohortsChange,
+}) {
+	const { items: cohortItems, handleChange: persistCohortChange } =
+		useCohortsRepeater(profile);
 	const { items: contactItems, handleChange: persistContactChange } =
 		useContactsRepeater(profile);
+
+	const cohortTypeOptions = cohortInfo.cohort_type || [];
+	const cohortEdgeOptions = cohortInfo.cohort_edges || [];
+	const cohortFlawOptions = cohortInfo.cohort_flaws || [];
+
+	const handleCohortChange = (nextItems) => {
+		persistCohortChange(nextItems);
+		onCohortsChange?.(nextItems);
+	};
 
 	const handleContactChange = (nextItems) => {
 		persistContactChange(nextItems);
@@ -35,7 +58,216 @@ export default function ContactsPage({ profile, onContactsChange }) {
 							Cohorts
 						</Body>
 					</Flex>
-					<Card backgroundColor="darker" noBorder></Card>
+					<Card backgroundColor="darker" noBorder padding="none">
+						<Repeater
+							controlledItems={cohortItems}
+							onChange={handleCohortChange}
+							initialItems={profile?.cohorts || []}
+							initialFormValue={{
+								name: "",
+								type: "",
+								gang_type: "",
+								expertise: "",
+								edges: [],
+								flaws: [],
+							}}
+							addButtonText="Cohort"
+							addIcon="plus"
+							formRenderer={({ value, setValue, onSave, onCancel }) => (
+								<Flex
+									direction="column"
+									gap="sm"
+									padding="md"
+									className="repeater__row"
+								>
+									<Caption color="highlight">New Cohort</Caption>
+									<TextInput
+										value={value.name}
+										onChange={(name) => setValue({ ...value, name })}
+										placeholder="Enter Name"
+									/>
+									<Flex direction="column" gap="xs">
+										<Caption color="highlight">Type</Caption>
+										<Flex gap="sm">
+											<Button
+												variant={value.type === "gang" ? "active" : "secondary"}
+												fullWidth
+												onClick={() =>
+													setValue({
+														...value,
+														type: "gang",
+														expertise: "",
+													})
+												}
+											>
+												Gang
+											</Button>
+											<Button
+												variant={
+													value.type === "expert" ? "active" : "secondary"
+												}
+												fullWidth
+												onClick={() =>
+													setValue({
+														...value,
+														type: "expert",
+														gang_type: "",
+													})
+												}
+											>
+												Expert
+											</Button>
+										</Flex>
+									</Flex>
+									{value.type === "gang" && (
+										<Flex direction="column" gap="xs">
+											<Caption color="highlight">Gang Type</Caption>
+											<Select
+												options={cohortTypeOptions}
+												value={value.gang_type}
+												onChange={(gang_type) =>
+													setValue({ ...value, gang_type })
+												}
+												placeholder="Select Gang Type"
+											/>
+										</Flex>
+									)}
+									{value.type === "expert" && (
+										<Flex direction="column" gap="xs">
+											<Caption color="highlight">Expertise</Caption>
+											<TextInput
+												value={value.expertise}
+												onChange={(expertise) =>
+													setValue({ ...value, expertise })
+												}
+												placeholder="Enter Expertise"
+											/>
+										</Flex>
+									)}
+									<Flex direction="column" gap="xs">
+										<Caption color="highlight">Edges</Caption>
+										<Flex gap="sm" wrap="wrap">
+											{cohortEdgeOptions.map((edge) => (
+												<Button
+													key={edge}
+													variant={
+														value.edges.includes(edge) ? "active" : "secondary"
+													}
+													onClick={() =>
+														setValue({
+															...value,
+															edges: toggleOption(value.edges, edge),
+														})
+													}
+												>
+													{edge}
+												</Button>
+											))}
+										</Flex>
+									</Flex>
+									<Flex direction="column" gap="xs">
+										<Caption color="highlight">Flaws</Caption>
+										<Flex gap="sm" wrap="wrap">
+											{cohortFlawOptions.map((flaw) => (
+												<Button
+													key={flaw}
+													variant={
+														value.flaws.includes(flaw) ? "active" : "secondary"
+													}
+													onClick={() =>
+														setValue({
+															...value,
+															flaws: toggleOption(value.flaws, flaw),
+														})
+													}
+												>
+													{flaw}
+												</Button>
+											))}
+										</Flex>
+									</Flex>
+									<Flex gap="sm" justifyContent="space-between" paddingTop="md">
+										<Button
+											icon="check"
+											onClick={() => {
+												const name = value.name?.trim();
+												const expertise = value.expertise?.trim();
+												const gangType = value.gang_type?.trim();
+
+												if (!name || !value.type) {
+													return;
+												}
+
+												if (value.type === "gang" && !gangType) {
+													return;
+												}
+
+												if (value.type === "expert" && !expertise) {
+													return;
+												}
+
+												onSave({
+													name,
+													type: value.type,
+													gang_type: value.type === "gang" ? gangType : "",
+													expertise: value.type === "expert" ? expertise : "",
+													edges: value.edges,
+													flaws: value.flaws,
+												});
+											}}
+										>
+											Save
+										</Button>
+										<Button variant="tertiary" onClick={onCancel}>
+											Cancel
+										</Button>
+									</Flex>
+								</Flex>
+							)}
+							itemRenderer={({ key, value, onDelete }) => (
+								<Flex
+									key={key}
+									gap="md"
+									alignItems="flex-start"
+									justifyContent="space-between"
+									padding="md"
+									className="repeater__row"
+								>
+									<Flex direction="column" gap="xs" flexGrow={1}>
+										<Flex
+											gap="sm"
+											alignItems="baseline"
+											justifyContent="space-between"
+										>
+											<Body color="highlight" bold>
+												{value.name}
+											</Body>
+											<Caption>
+												{value.type === "gang" ? "Gang" : "Expert"}
+											</Caption>
+										</Flex>
+										<Caption>
+											{value.type === "gang"
+												? value.gang_type
+												: value.expertise}
+										</Caption>
+										{value.edges?.length > 0 && (
+											<Caption>Edges: {value.edges.join(", ")}</Caption>
+										)}
+										{value.flaws?.length > 0 && (
+											<Caption>Flaws: {value.flaws.join(", ")}</Caption>
+										)}
+									</Flex>
+									<IconButton
+										icon="trash-alt"
+										variant="secondary"
+										onClick={onDelete}
+										color="highlight"
+									/>
+								</Flex>
+							)}
+						/>
+					</Card>
 				</Flex>
 			</Banner>
 
@@ -168,8 +400,9 @@ export default function ContactsPage({ profile, onContactsChange }) {
 										</Flex>
 										<IconButton
 											icon="trash-alt"
-											variant="tertiary"
+											variant="secondary"
 											onClick={onDelete}
+											color="highlight"
 										/>
 									</Flex>
 								);

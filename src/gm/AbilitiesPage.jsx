@@ -57,9 +57,10 @@ function UpgradeItem({ value, upgradeLookup, onDelete, onUpdate }) {
 			</Flex>
 			<IconButton
 				icon="trash-alt"
-				variant="tertiary"
+				variant="secondary"
 				onClick={onDelete}
 				marginLeft="auto"
+				color="highlight"
 			/>
 		</Flex>
 	);
@@ -176,9 +177,10 @@ export default function AbilitiesPage({ profile }) {
 										</Flex>
 										<IconButton
 											icon="trash-alt"
-											variant="tertiary"
+											variant="secondary"
 											onClick={onDelete}
 											marginLeft="auto"
+											color="highlight"
 										/>
 									</Flex>
 								);
@@ -324,9 +326,10 @@ export default function AbilitiesPage({ profile }) {
 									</Flex>
 									<IconButton
 										icon="trash-alt"
-										variant="tertiary"
+										variant="secondary"
 										onClick={onDelete}
 										marginLeft="auto"
+										color="highlight"
 									/>
 								</Flex>
 							)}

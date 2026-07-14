@@ -220,6 +220,33 @@ export function useContactsRepeater(profile) {
 	};
 }
 
+export function useCohortsRepeater(profile) {
+	const getCohorts = useCallback(
+		() =>
+			getPersistedProfileData(profile?.id, "cohorts") ?? profile?.cohorts ?? [],
+		[profile?.id, profile?.cohorts],
+	);
+	const [items, setItems] = useState(getCohorts);
+	const persist = useProfileDataPersist(profile?.id, "cohorts");
+
+	useEffect(() => {
+		setItems(getCohorts());
+	}, [getCohorts]);
+
+	const handleChange = useCallback(
+		(nextItems) => {
+			setItems(nextItems);
+			persist(nextItems);
+		},
+		[persist],
+	);
+
+	return {
+		items,
+		handleChange,
+	};
+}
+
 // ============================================================================
 // CLOCKS REPEATER UTILITIES
 // ============================================================================

@@ -41,6 +41,12 @@ export default function GMView() {
 		);
 	};
 
+	const handleCohortsChange = (cohorts) => {
+		setProfile((currentProfile) =>
+			currentProfile ? { ...currentProfile, cohorts } : currentProfile,
+		);
+	};
+
 	if (!profile) {
 		return (
 			<Flex direction="column" gap="md" fullWidth alignItems="center">
@@ -90,6 +96,7 @@ export default function GMView() {
 				<CrewManagement
 					profile={profile}
 					onContactsChange={handleContactsChange}
+					onCohortsChange={handleCohortsChange}
 				/>
 			)}
 		</>

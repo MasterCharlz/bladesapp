@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
 	Flex,
 	Body,
@@ -8,6 +8,13 @@ import {
 	Button,
 	IconButton,
 } from "../components";
+import {
+	getProfiles,
+	getStoreValue,
+	patchProfile,
+	saveProfiles,
+	setStoreValue,
+} from "../apiStore";
 
 // ============================================================================
 // COMMON UTILITIES
@@ -17,43 +24,10 @@ export function useProfileDataPersist(profileId, dataKey) {
 	return useCallback(
 		(data) => {
 			if (!profileId) return;
-			try {
-				localStorage.setItem(
-					`profile-${dataKey}-${profileId}`,
-					JSON.stringify(data),
-				);
-				const raw = localStorage.getItem("profiles");
-				const profiles = raw ? JSON.parse(raw) : [];
-				if (!Array.isArray(profiles)) return;
-				const index = profiles.findIndex(
-					(p) => String(p.id) === String(profileId),
-				);
-				if (index > -1) {
-					profiles[index] = { ...profiles[index], [dataKey]: data };
-					localStorage.setItem("profiles", JSON.stringify(profiles));
-				}
-			} catch (e) {
-				// ignore storage errors
-			}
+			patchProfile(profileId, dataKey, data);
 		},
 		[profileId, dataKey],
 	);
-}
-
-function getPersistedProfileData(profileId, dataKey, fallback) {
-	if (!profileId) return fallback;
-	try {
-		const scopedRaw = localStorage.getItem(`profile-${dataKey}-${profileId}`);
-		if (scopedRaw !== null) return JSON.parse(scopedRaw);
-		const raw = localStorage.getItem("profiles");
-		const profiles = raw ? JSON.parse(raw) : [];
-		const profile = Array.isArray(profiles)
-			? profiles.find((item) => String(item.id) === String(profileId))
-			: null;
-		return profile?.[dataKey] ?? fallback;
-	} catch (e) {
-		return fallback;
-	}
 }
 
 // ============================================================================
@@ -192,19 +166,12 @@ export function useHuntingGroundsRepeater(profile, crewSpecialtiesData) {
 }
 
 export function useContactsRepeater(profile) {
-	const getContacts = useCallback(
-		() =>
-			getPersistedProfileData(profile?.id, "contacts") ??
-			profile?.contacts ??
-			[],
-		[profile?.id, profile?.contacts],
-	);
-	const [items, setItems] = useState(getContacts);
+	const [items, setItems] = useState(profile?.contacts || []);
 	const persist = useProfileDataPersist(profile?.id, "contacts");
 
 	useEffect(() => {
-		setItems(getContacts());
-	}, [getContacts]);
+		setItems(profile?.contacts || []);
+	}, [profile?.id, profile?.contacts]);
 
 	const handleChange = useCallback(
 		(nextItems) => {
@@ -256,28 +223,26 @@ export function getClockIcon(type) {
 
 export function useClocksRepeater(profileId, playerCharacters = []) {
 	const storageKey = getClockStorageKey(profileId);
-
-	const loadRows = useCallback(() => {
-		if (!profileId) return [];
-		try {
-			const raw = localStorage.getItem(storageKey);
-			const parsed = raw ? JSON.parse(raw) : [];
-			return Array.isArray(parsed) ? parsed : [];
-		} catch (e) {
-			return [];
-		}
-	}, [profileId, storageKey]);
-
-	const [rows, setRows] = useState(loadRows);
+	const [rows, setRows] = useState([]);
+	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
 		if (!profileId) return;
-		try {
-			localStorage.setItem(storageKey, JSON.stringify(rows));
-		} catch (e) {
-			// ignore storage failures
-		}
-	}, [profileId, rows, storageKey]);
+		let mounted = true;
+		getStoreValue(storageKey, []).then((storedRows) => {
+			if (!mounted) return;
+			setRows(Array.isArray(storedRows) ? storedRows : []);
+			setLoaded(true);
+		});
+		return () => {
+			mounted = false;
+		};
+	}, [profileId, storageKey]);
+
+	useEffect(() => {
+		if (!profileId || !loaded) return;
+		setStoreValue(storageKey, rows);
+	}, [profileId, rows, storageKey, loaded]);
 
 	const playerOptions = [
 		"All",
@@ -347,27 +312,31 @@ export default function PlayerCharacterRepeater({
 	const [items, setItems] = useState(initialItems || []);
 	const [isCreating, setIsCreating] = useState(false);
 	const [formValue, setFormValue] = useState({ name: "", playbook: "" });
+	const onPersistRef = useRef(onPersist);
+
+	useEffect(() => {
+		onPersistRef.current = onPersist;
+	}, [onPersist]);
 
 	useEffect(() => {
 		setItems(initialItems || []);
 	}, [initialItems]);
 
 	useEffect(() => {
-		try {
-			const raw = localStorage.getItem("profiles");
-			if (raw) {
-				const arr = JSON.parse(raw);
-				const idx = arr.findIndex((p) => p.id === profileId);
-				if (idx > -1) {
-					arr[idx].characters = items;
-					localStorage.setItem("profiles", JSON.stringify(arr));
-				}
-			}
-		} catch (e) {
-			// ignore
+		if (!profileId) {
+			onPersistRef.current?.(items);
+			return;
 		}
-		onPersist?.(items);
-	}, [items]);
+		getProfiles([]).then((arr) => {
+			if (!Array.isArray(arr)) return;
+			const idx = arr.findIndex((p) => p.id === profileId);
+			if (idx > -1) {
+				arr[idx].characters = items;
+				saveProfiles(arr);
+			}
+		});
+		onPersistRef.current?.(items);
+	}, [items, profileId]);
 
 	function handleSave() {
 		if (!formValue.name.trim()) return;

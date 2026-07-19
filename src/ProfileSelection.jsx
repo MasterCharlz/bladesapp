@@ -12,27 +12,20 @@ import {
 import PlayerCharacterRepeater from "./widgets/Repeaters";
 import profilesData from "./profiles.json";
 import { useRouter } from "next/router";
+import { getProfiles, saveProfiles } from "./apiStore";
+
+function normalizeProfiles(items) {
+	return (items || []).map((p) => ({
+		...p,
+		id: p.id ?? crypto.randomUUID(),
+		characters: p.characters ?? [],
+	}));
+}
 
 export default function ProfileSelection() {
 	const [showCreateForm, setShowCreateForm] = useState(false);
-	const [profiles, setProfiles] = useState(() => {
-		try {
-			const raw = localStorage.getItem("profiles");
-			const parsed = raw ? JSON.parse(raw) : profilesData.profiles || [];
-			// ensure each profile has a stable id and characters array
-			return (parsed || []).map((p) => ({
-				...p,
-				id: p.id ?? crypto.randomUUID(),
-				characters: p.characters ?? [],
-			}));
-		} catch (e) {
-			return (profilesData.profiles || []).map((p) => ({
-				...p,
-				id: p.id ?? crypto.randomUUID(),
-				characters: p.characters ?? [],
-			}));
-		}
-	});
+	const [profiles, setProfiles] = useState([]);
+	const [loaded, setLoaded] = useState(false);
 	const [newProfile, setNewProfile] = useState({
 		crew_name: "",
 		crew_type: "",
@@ -44,6 +37,18 @@ export default function ProfileSelection() {
 	};
 
 	const router = useRouter();
+
+	useEffect(() => {
+		let mounted = true;
+		getProfiles(profilesData.profiles || []).then((items) => {
+			if (!mounted) return;
+			setProfiles(normalizeProfiles(items));
+			setLoaded(true);
+		});
+		return () => {
+			mounted = false;
+		};
+	}, []);
 
 	const handleCreateCrew = () => {
 		if (!newProfile.crew_name.trim()) return;
@@ -62,17 +67,18 @@ export default function ProfileSelection() {
 	};
 
 	useEffect(() => {
-		try {
-			localStorage.setItem("profiles", JSON.stringify(profiles));
-		} catch (e) {
-			// ignore quota errors
-		}
-	}, [profiles]);
+		if (!loaded) return;
+		saveProfiles(profiles);
+	}, [profiles, loaded]);
 
 	const handleUpdateCharacters = (profileId, nextItems) => {
 		setProfiles((prev) =>
 			prev.map((p) =>
-				p.id === profileId ? { ...p, characters: nextItems } : p,
+				p.id === profileId
+					? p.characters === nextItems
+						? p
+						: { ...p, characters: nextItems }
+					: p,
 			),
 		);
 	};

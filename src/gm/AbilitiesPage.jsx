@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
 	Flex,
@@ -25,6 +25,7 @@ import {
 	useHuntingGroundsRepeater,
 	useUpgradesRepeater,
 } from "../widgets/Repeaters";
+import { getStoreValue } from "../apiStore";
 
 function renderDescription(text) {
 	return renderBoldText(text);
@@ -67,17 +68,26 @@ function UpgradeItem({ value, upgradeLookup, onDelete, onUpdate }) {
 
 export default function AbilitiesPage({ profile }) {
 	const router = useRouter();
-	let savedLairStates = {};
-	try {
-		const saved = JSON.parse(
-			localStorage.getItem(`lair-map-${profile?.id}`) || "{}",
-		);
-		if (saved && typeof saved === "object" && !Array.isArray(saved)) {
-			savedLairStates = saved;
+	const [savedLairStates, setSavedLairStates] = useState({});
+
+	useEffect(() => {
+		if (!profile?.id) {
+			setSavedLairStates({});
+			return;
 		}
-	} catch (e) {
-		// ignore storage failures
-	}
+		let mounted = true;
+		getStoreValue(`lair-map-${profile.id}`, {}).then((saved) => {
+			if (!mounted) return;
+			setSavedLairStates(
+				saved && typeof saved === "object" && !Array.isArray(saved)
+					? saved
+					: {},
+			);
+		});
+		return () => {
+			mounted = false;
+		};
+	}, [profile?.id]);
 
 	const activeLairNodes = (
 		lairNodesData.crew_type?.[profile?.crew_type] || []

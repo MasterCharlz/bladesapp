@@ -1,0 +1,134 @@
+{
+  "profiles": [
+    {
+      "crew_name": "Assassins test",
+      "crew_type": "Assassins",
+      "subprofiles": [
+        {
+          "subprofile_type": "gm"
+        }
+      ],
+      "characters": [
+        {
+          "id": "f3954b79-3beb-48a4-97bd-ca01406cdb88",
+          "value": {
+            "name": "Bingus",
+            "playbook": "Cutter"
+          }
+        },
+        {
+          "id": "c7bc2235-7205-4fe6-b523-9a9471757ee7",
+          "value": {
+            "name": "Bongus",
+            "playbook": "Lurk"
+          }
+        }
+      ],
+      "id": "258d574a-4888-4c2b-bde4-455891c2f1a5",
+      "heatData": {
+        "crewXp": 1,
+        "tier": 2,
+        "strongHold": false,
+        "rep": 2,
+        "heat": 2,
+        "wanted": 0,
+        "coin": 5
+      },
+      "upgrades": [
+        {
+          "id": "4f9a9785-8752-4cff-9c32-f69bc4942b13",
+          "value": {
+            "upgrade": "vault",
+            "pipStates": {
+              "1": true
+            }
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "id": "3a7e1e7d-80f4-45fd-b99b-c22aebafe322",
+          "value": {
+            "ability": "crows_veil"
+          }
+        }
+      ],
+      "huntingGrounds": [
+        {
+          "id": "21c4bdc6-4281-48a7-bf20-9c158843207b",
+          "value": {
+            "name": "test",
+            "specialty": "Disappearance"
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "id": "09a9459b-7718-49a9-8a44-90a83d7abb92",
+          "value": {
+            "name": "tst",
+            "title": "asdt",
+            "reputation": 2
+          }
+        }
+      ]
+    },
+    {
+      "crew_name": "Cult test",
+      "crew_type": "Cult",
+      "subprofiles": [
+        {
+          "subprofile_type": "gm"
+        }
+      ],
+      "characters": [
+        {
+          "id": "359ed20d-7492-4b7e-958c-c19a87c79000",
+          "value": {
+            "name": "Kevin",
+            "playbook": "Whisper"
+          }
+        }
+      ],
+      "id": "236955fc-517c-4b9a-a92e-c98d8435078e"
+    }
+  ],
+  "gm-view-page-258d574a-4888-4c2b-bde4-455891c2f1a5": "crew-management",
+  "gm-clocks-258d574a-4888-4c2b-bde4-455891c2f1a5": [
+    {
+      "id": "66108192-bef8-49b5-8e21-17f97b795e69",
+      "name": "test",
+      "type": "contested",
+      "slices": 4,
+      "player": "All",
+      "progress": 2,
+      "editing": false
+    },
+    {
+      "id": "7add5c88-702a-4bb1-a3a3-34967aa7cc6d",
+      "name": "race",
+      "type": "race",
+      "slices": 6,
+      "player": "All",
+      "progress": 3,
+      "editing": false
+    },
+    {
+      "id": "1c5fba88-41d2-4925-a6e6-bae01012a2e1",
+      "name": "death",
+      "type": "danger",
+      "slices": 3,
+      "player": "Bingus",
+      "progress": 2,
+      "editing": false
+    }
+  ],
+  "gm-crew-subpage-258d574a-4888-4c2b-bde4-455891c2f1a5": "contacts",
+  "lair-map-258d574a-4888-4c2b-bde4-455891c2f1a5": {
+    "1": true,
+    "2": true,
+    "3": true,
+    "5": true,
+    "9": true
+  }
+}

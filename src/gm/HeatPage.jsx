@@ -13,6 +13,7 @@ import {
 } from "../components";
 import { useProfileDataPersist } from "../widgets/Repeaters";
 import lairNodesData from "../data/LairNodes.json";
+import { getStoreValue } from "../apiStore";
 
 const DEFAULT_HEAT_DATA = {
 	crewXp: 0,
@@ -33,19 +34,29 @@ export default function HeatPage({ profile }) {
 	const persistHeatData = useProfileDataPersist(profile?.id, "heatData");
 
 	useEffect(() => {
-		try {
-			const savedStates = JSON.parse(
-				localStorage.getItem(`lair-map-${profile?.id}`) || "{}",
-			);
+		if (!profile?.id) {
+			setActiveTurfCount(0);
+			return;
+		}
+		let mounted = true;
+		getStoreValue(`lair-map-${profile.id}`, {}).then((savedStates) => {
+			if (!mounted) return;
+			const normalized =
+				savedStates &&
+				typeof savedStates === "object" &&
+				!Array.isArray(savedStates)
+					? savedStates
+					: {};
 			const lairNodes = lairNodesData.crew_type?.[profile?.crew_type] || [];
 			const turfCount = lairNodes.filter(
-				(node) => node.title === "Turf" && savedStates[node.id] === true,
+				(node) => node.title === "Turf" && normalized[node.id] === true,
 			).length;
 
 			setActiveTurfCount(Math.min(turfCount, 12));
-		} catch (error) {
-			setActiveTurfCount(0);
-		}
+		});
+		return () => {
+			mounted = false;
+		};
 	}, [profile?.id, profile?.crew_type]);
 
 	useEffect(() => {

@@ -3,48 +3,58 @@ import { useRouter } from "next/router";
 import { Flex, Heading, Card, Button, Body, Caption, Nav } from "./components";
 import Clocks from "./gm/Clocks";
 import CrewManagement from "./gm/CrewManagement";
+import { getProfiles, getStoreValue, setStoreValue } from "./apiStore";
 
 export default function GMView() {
 	const router = useRouter();
 	const routeId = router.query.id;
 	const id = Array.isArray(routeId) ? routeId[0] : routeId;
 	const storageKey = `gm-view-page-${id ?? ""}`;
-	const [activePage, setActivePage] = useState(() => {
-		try {
-			return localStorage.getItem(storageKey) || "clock-management";
-		} catch (e) {
-			return "clock-management";
-		}
-	});
-
-	const profilesRaw = (() => {
-		try {
-			return JSON.parse(localStorage.getItem("profiles") || "[]");
-		} catch (e) {
-			return [];
-		}
-	})();
-
-	const storedProfile = profilesRaw.find((p) => String(p.id) === String(id));
-	const [profile, setProfile] = useState(storedProfile);
+	const [activePage, setActivePage] = useState("clock-management");
+	const [activePageLoaded, setActivePageLoaded] = useState(false);
+	const [profile, setProfile] = useState(null);
+	const [profileLoaded, setProfileLoaded] = useState(false);
 
 	useEffect(() => {
-		setProfile(profilesRaw.find((p) => String(p.id) === String(id)));
+		if (!id) return;
+		let mounted = true;
+		getProfiles([]).then((items) => {
+			if (!mounted) return;
+			setProfile(items.find((p) => String(p.id) === String(id)) || null);
+			setProfileLoaded(true);
+		});
+		return () => {
+			mounted = false;
+		};
 	}, [id]);
 
 	useEffect(() => {
-		try {
-			localStorage.setItem(storageKey, activePage);
-		} catch (e) {
-			// ignore storage failures
-		}
-	}, [activePage, storageKey]);
+		if (!id) return;
+		let mounted = true;
+		getStoreValue(storageKey, "clock-management").then((value) => {
+			if (!mounted) return;
+			setActivePage(value || "clock-management");
+			setActivePageLoaded(true);
+		});
+		return () => {
+			mounted = false;
+		};
+	}, [storageKey, id]);
+
+	useEffect(() => {
+		if (!id || !activePageLoaded) return;
+		setStoreValue(storageKey, activePage);
+	}, [activePage, storageKey, id, activePageLoaded]);
 
 	const handleContactsChange = (contacts) => {
 		setProfile((currentProfile) =>
 			currentProfile ? { ...currentProfile, contacts } : currentProfile,
 		);
 	};
+
+	if (!id || !profileLoaded) {
+		return null;
+	}
 
 	if (!profile) {
 		return (

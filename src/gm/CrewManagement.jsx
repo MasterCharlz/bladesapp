@@ -3,24 +3,30 @@ import { Flex, SubNav } from "../components";
 import HeatPage from "./HeatPage";
 import AbilitiesPage from "./AbilitiesPage";
 import ContactsPage from "./ContactsPage";
+import { getStoreValue, setStoreValue } from "../apiStore";
 
 export default function CrewManagement({ profile, onContactsChange }) {
 	const storageKey = `gm-crew-subpage-${profile?.id}`;
-	const [activeSubPage, setActiveSubPage] = useState(() => {
-		try {
-			return localStorage.getItem(storageKey) || "heat";
-		} catch (e) {
-			return "heat";
-		}
-	});
+	const [activeSubPage, setActiveSubPage] = useState("heat");
+	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
-		try {
-			localStorage.setItem(storageKey, activeSubPage);
-		} catch (e) {
-			// ignore storage failures
-		}
-	}, [activeSubPage, storageKey]);
+		if (!profile?.id) return;
+		let mounted = true;
+		getStoreValue(storageKey, "heat").then((value) => {
+			if (!mounted) return;
+			setActiveSubPage(value || "heat");
+			setLoaded(true);
+		});
+		return () => {
+			mounted = false;
+		};
+	}, [storageKey, profile?.id]);
+
+	useEffect(() => {
+		if (!profile?.id || !loaded) return;
+		setStoreValue(storageKey, activeSubPage);
+	}, [activeSubPage, storageKey, profile?.id, loaded]);
 
 	return (
 		<Flex direction="column" paddingBottom="xxl">

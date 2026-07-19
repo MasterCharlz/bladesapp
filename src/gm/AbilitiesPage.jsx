@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import {
 	Flex,
 	Card,
@@ -15,10 +15,10 @@ import {
 	Heading,
 	Pip,
 } from "../components";
-import crewAbilitiesData from "./CrewAbilities.json";
-import crewSpecialtiesData from "./CrewSpecialties.json";
-import crewUpgradesData from "./CrewUpgrades.json";
-import lairNodesData from "./LairNodes.json";
+import crewAbilitiesData from "../data/CrewAbilities.json";
+import crewSpecialtiesData from "../data/CrewSpecialties.json";
+import crewUpgradesData from "../data/CrewUpgrades.json";
+import lairNodesData from "../data/LairNodes.json";
 import {
 	renderBoldText,
 	useAbilitiesRepeater,
@@ -66,7 +66,7 @@ function UpgradeItem({ value, upgradeLookup, onDelete, onUpdate }) {
 }
 
 export default function AbilitiesPage({ profile }) {
-	const navigate = useNavigate();
+	const router = useRouter();
 	let savedLairStates = {};
 	try {
 		const saved = JSON.parse(
@@ -362,7 +362,7 @@ export default function AbilitiesPage({ profile }) {
 							icon="magnifying-glass"
 							variant="tertiary"
 							fullWidth
-							onClick={() => navigate(`/gm/${profile?.id}/lair-map`)}
+							onClick={() => router.push(`/gm/${profile?.id}/lair-map`)}
 							padding="md"
 						>
 							View Map

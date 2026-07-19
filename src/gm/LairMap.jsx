@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useRouter } from "next/router";
 import {
 	Flex,
 	Button,
@@ -8,12 +8,13 @@ import {
 	Caption,
 	Heading,
 } from "../components";
-import lairNodesData from "./LairNodes.json";
+import lairNodesData from "../data/LairNodes.json";
 
 export default function LairMap() {
-	const navigate = useNavigate();
-	const { id } = useParams();
-	const storageKey = `lair-map-${id}`;
+	const router = useRouter();
+	const routeId = router.query.id;
+	const id = Array.isArray(routeId) ? routeId[0] : routeId;
+	const storageKey = `lair-map-${id ?? ""}`;
 	const [nodeStates, setNodeStates] = useState(() => {
 		try {
 			const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
@@ -48,7 +49,7 @@ export default function LairMap() {
 	function handleSave() {
 		try {
 			localStorage.setItem(storageKey, JSON.stringify(nodeStates));
-			navigate(`/gm/${id}`);
+			router.push(`/gm/${id}`);
 		} catch (e) {
 			// ignore storage failures
 		}
@@ -86,7 +87,7 @@ export default function LairMap() {
 				<Button icon="check" onClick={handleSave}>
 					Save
 				</Button>
-				<Button variant="tertiary" onClick={() => navigate(`/gm/${id}`)}>
+				<Button variant="tertiary" onClick={() => router.push(`/gm/${id}`)}>
 					Cancel
 				</Button>
 			</Flex>

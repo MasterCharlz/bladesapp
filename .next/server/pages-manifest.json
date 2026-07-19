@@ -1,0 +1,8 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/gm/[id]": "pages/gm/[id].js",
+  "/gm/[id]/lair-map": "pages/gm/[id]/lair-map.js",
+  "/": "pages/index.js"
+}

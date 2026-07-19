@@ -11,7 +11,7 @@ import {
 } from "./components";
 import PlayerCharacterRepeater from "./widgets/Repeaters";
 import profilesData from "./profiles.json";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 
 export default function ProfileSelection() {
 	const [showCreateForm, setShowCreateForm] = useState(false);
@@ -43,7 +43,7 @@ export default function ProfileSelection() {
 		setShowCreateForm(false);
 	};
 
-	const navigate = useNavigate();
+	const router = useRouter();
 
 	const handleCreateCrew = () => {
 		if (!newProfile.crew_name.trim()) return;
@@ -93,7 +93,7 @@ export default function ProfileSelection() {
 			paddingX="md"
 			paddingY="xl"
 		>
-			<img src="../src/images/bitd-logo.svg" />
+			<img src="/images/bitd-logo.svg" />
 			<Flex direction="column" gap="sm" fullWidth>
 				{profiles.map((profile) => (
 					<Card key={profile.id} padding="none" fullWidth noBorder>
@@ -114,7 +114,7 @@ export default function ProfileSelection() {
 								<Flex marginBottom="md">
 									<Button
 										icon="dice"
-										onClick={() => navigate(`/gm/${profile.id}`)}
+										onClick={() => router.push(`/gm/${profile.id}`)}
 									>
 										GM View
 									</Button>

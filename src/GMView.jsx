@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { Flex, Heading, Card, Button, Body, Caption, Nav } from "./components";
 import Clocks from "./gm/Clocks";
 import CrewManagement from "./gm/CrewManagement";
 
 export default function GMView() {
-	const { id } = useParams();
-	const navigate = useNavigate();
-	const storageKey = `gm-view-page-${id}`;
+	const router = useRouter();
+	const routeId = router.query.id;
+	const id = Array.isArray(routeId) ? routeId[0] : routeId;
+	const storageKey = `gm-view-page-${id ?? ""}`;
 	const [activePage, setActivePage] = useState(() => {
 		try {
 			return localStorage.getItem(storageKey) || "clock-management";
@@ -26,6 +27,10 @@ export default function GMView() {
 
 	const storedProfile = profilesRaw.find((p) => String(p.id) === String(id));
 	const [profile, setProfile] = useState(storedProfile);
+
+	useEffect(() => {
+		setProfile(profilesRaw.find((p) => String(p.id) === String(id)));
+	}, [id]);
 
 	useEffect(() => {
 		try {
@@ -48,7 +53,7 @@ export default function GMView() {
 					404
 				</Heading>
 				<Body>No crew found for this GM view.</Body>
-				<Button onClick={() => navigate("/")}>Back</Button>
+				<Button onClick={() => router.push("/")}>Back</Button>
 			</Flex>
 		);
 	}
@@ -64,7 +69,7 @@ export default function GMView() {
 				<Button
 					variant="tertiary"
 					icon="arrow-left"
-					onClick={() => navigate("/")}
+					onClick={() => router.push("/")}
 				>
 					Back
 				</Button>

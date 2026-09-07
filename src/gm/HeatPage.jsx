@@ -11,9 +11,8 @@ import {
 	IconButton,
 	Button,
 } from "../components";
-import { useProfileDataPersist } from "../widgets/Repeaters";
 import lairNodesData from "../data/LairNodes.json";
-import { getStoreValue } from "../apiStore";
+import { getStoreValue, patchProfile } from "../apiStore";
 
 const DEFAULT_HEAT_DATA = {
 	crewXp: 0,
@@ -31,7 +30,6 @@ export default function HeatPage({ profile }) {
 		...(profile?.heatData || {}),
 	}));
 	const [activeTurfCount, setActiveTurfCount] = useState(0);
-	const persistHeatData = useProfileDataPersist(profile?.id, "heatData");
 
 	useEffect(() => {
 		if (!profile?.id) {
@@ -60,8 +58,9 @@ export default function HeatPage({ profile }) {
 	}, [profile?.id, profile?.crew_type]);
 
 	useEffect(() => {
-		persistHeatData(heatData);
-	}, [heatData, persistHeatData]);
+		if (!profile?.id) return;
+		patchProfile(profile.id, "heatData", heatData);
+	}, [heatData, profile?.id]);
 
 	function updateValue(key, value) {
 		setHeatData((previous) => ({ ...previous, [key]: value }));

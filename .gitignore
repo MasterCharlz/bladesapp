@@ -4,5 +4,12 @@ dist/
 .git/
 *.log
 .next/
+out/
 .github/
 .data/
+.neon/
+.env
+.env.*
+!.env.example
+.agents/
+skills-lock.json

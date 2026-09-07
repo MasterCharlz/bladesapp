@@ -9,7 +9,6 @@ import {
 	Heading,
 	Caption,
 } from "./components";
-import PlayerCharacterRepeater from "./widgets/Repeaters";
 import profilesData from "./profiles.json";
 import { useRouter } from "next/router";
 import { getProfiles, saveProfiles } from "./apiStore";
@@ -71,18 +70,6 @@ export default function ProfileSelection() {
 		saveProfiles(profiles);
 	}, [profiles, loaded]);
 
-	const handleUpdateCharacters = (profileId, nextItems) => {
-		setProfiles((prev) =>
-			prev.map((p) =>
-				p.id === profileId
-					? p.characters === nextItems
-						? p
-						: { ...p, characters: nextItems }
-					: p,
-			),
-		);
-	};
-
 	const handleDeleteProfile = (profileId) => {
 		setProfiles((prev) => prev.filter((p) => p.id !== profileId));
 	};
@@ -132,15 +119,7 @@ export default function ProfileSelection() {
 										Delete Crew
 									</Button>
 								</Flex>
-								<Card noBorder padding="none" backgroundColor="darker">
-									<PlayerCharacterRepeater
-										profileId={profile.id}
-										initialItems={profile.characters || []}
-										onPersist={(nextItems) =>
-											handleUpdateCharacters(profile.id, nextItems)
-										}
-									/>
-								</Card>
+								<Card noBorder padding="none" backgroundColor="darker" />
 							</Collapsible.Body>
 						</Collapsible>
 					</Card>

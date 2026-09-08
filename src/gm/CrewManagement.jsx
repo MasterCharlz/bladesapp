@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Flex, SubNav } from "../components";
+import { Flex, SubNav } from "../components/index";
 import HeatPage from "./HeatPage";
 import AbilitiesPage from "./AbilitiesPage";
 import ContactsPage from "./ContactsPage";

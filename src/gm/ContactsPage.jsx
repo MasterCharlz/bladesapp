@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Card, Body, Banner, Icon } from "../components";
+import { Flex, Card, Body, Banner, Icon } from "../components/index";
 
 export default function ContactsPage({ profile, onContactsChange }) {
 	return (

@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const GMView = dynamic(() => import("../../../src/GMView"), {
+const GMView = dynamic(() => import("../../../src/gm/GMView"), {
 	ssr: false,
 });
 

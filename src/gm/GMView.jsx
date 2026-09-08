@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Flex, Heading, Card, Button, Body, Caption, Nav } from "./components";
-import Clocks from "./gm/Clocks";
-import CrewManagement from "./gm/CrewManagement";
-import { getProfiles, getStoreValue, setStoreValue } from "./apiStore";
+import {
+	Flex,
+	Heading,
+	Card,
+	Button,
+	Body,
+	Caption,
+	Nav,
+} from "../components/index";
+import Clocks from "./Clocks";
+import CrewManagement from "./CrewManagement";
+import { getProfiles, getStoreValue, setStoreValue } from "../apiStore";
 
 export default function GMView() {
 	const router = useRouter();

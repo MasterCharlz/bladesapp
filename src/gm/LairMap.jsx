@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import {
 	Flex,
 	Button,
@@ -7,17 +6,14 @@ import {
 	LairNode,
 	Caption,
 	Heading,
-} from "../components";
+} from "../components/index";
 import lairNodesData from "../data/LairNodes.json";
-import { getProfiles, getStoreValue, setStoreValue } from "../apiStore";
+import { getStoreValue, setStoreValue } from "../apiStore";
 
-export default function LairMap() {
-	const router = useRouter();
-	const routeId = router.query.id;
-	const id = Array.isArray(routeId) ? routeId[0] : routeId;
+export default function LairMap({ profile, onClose }) {
+	const id = profile?.id;
 	const storageKey = `lair-map-${id ?? ""}`;
 	const [nodeStates, setNodeStates] = useState({});
-	const [profile, setProfile] = useState(null);
 
 	useEffect(() => {
 		if (!id) return;
@@ -29,10 +25,6 @@ export default function LairMap() {
 					? saved
 					: {},
 			);
-		});
-		getProfiles([]).then((items) => {
-			if (!mounted) return;
-			setProfile(items.find((item) => String(item.id) === String(id)) || null);
 		});
 		return () => {
 			mounted = false;
@@ -52,7 +44,7 @@ export default function LairMap() {
 
 	function handleSave() {
 		setStoreValue(storageKey, nodeStates).then(() => {
-			router.push(`/gm/${id}`);
+			onClose?.(nodeStates);
 		});
 	}
 
@@ -88,7 +80,7 @@ export default function LairMap() {
 				<Button icon="check" onClick={handleSave}>
 					Save
 				</Button>
-				<Button variant="tertiary" onClick={() => router.push(`/gm/${id}`)}>
+				<Button variant="tertiary" onClick={onClose}>
 					Cancel
 				</Button>
 			</Flex>

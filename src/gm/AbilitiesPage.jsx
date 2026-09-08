@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { Flex, Card, Body, Banner, Button, Icon, Heading } from "../components";
+import {
+	Flex,
+	Card,
+	Body,
+	Banner,
+	Button,
+	Icon,
+	Heading,
+	Modal,
+} from "../components/index";
 import lairNodesData from "../data/LairNodes.json";
 import { getStoreValue } from "../apiStore";
+import LairMap from "./LairMap";
 
 export default function AbilitiesPage({ profile }) {
-	const router = useRouter();
+	const [isLairMapOpen, setIsLairMapOpen] = useState(false);
 	const [savedLairStates, setSavedLairStates] = useState({});
+
+	const handleLairMapClose = (nextStates) => {
+		if (nextStates) setSavedLairStates(nextStates);
+		setIsLairMapOpen(false);
+	};
 
 	useEffect(() => {
 		if (!profile?.id) {
@@ -99,7 +113,7 @@ export default function AbilitiesPage({ profile }) {
 							icon="magnifying-glass"
 							variant="tertiary"
 							fullWidth
-							onClick={() => router.push(`/gm/${profile?.id}/lair-map`)}
+							onClick={() => setIsLairMapOpen(true)}
 							padding="md"
 						>
 							View Map
@@ -107,6 +121,14 @@ export default function AbilitiesPage({ profile }) {
 					</Card>
 				</Flex>
 			</Banner>
+
+			<Modal
+				open={isLairMapOpen}
+				onClose={handleLairMapClose}
+				className="modal-card--fullscreen"
+			>
+				<LairMap profile={profile} onClose={handleLairMapClose} />
+			</Modal>
 		</>
 	);
 }

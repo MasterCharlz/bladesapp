@@ -10,7 +10,7 @@ import {
 	Stepper,
 	IconButton,
 	Button,
-} from "../components";
+} from "../components/index";
 import lairNodesData from "../data/LairNodes.json";
 import { getStoreValue, patchProfile } from "../apiStore";
 

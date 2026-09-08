@@ -306,6 +306,10 @@ svg {
 	max-width: 560px;
 	width: 100%;
 }
+.modal-card--fullscreen {
+	max-width: none;
+	height: 100%;
+}
 
 .text-input {
 	width: 100%;

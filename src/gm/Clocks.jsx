@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex } from "../components";
+import { Flex } from "../components/index";
 
 export default function Clocks({ playerCharacters = [], profileId }) {
 	return (

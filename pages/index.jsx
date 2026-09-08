@@ -10,8 +10,7 @@ import {
 	Collapsible,
 	Heading,
 	Caption,
-} from "../src/components";
-import profilesData from "../src/profiles.json";
+} from "../src/components/index";
 import { getProfiles, saveProfiles } from "../src/apiStore";
 
 function normalizeProfiles(items) {
@@ -40,7 +39,7 @@ function HomePage() {
 
 	useEffect(() => {
 		let mounted = true;
-		getProfiles(profilesData.profiles || []).then((items) => {
+		getProfiles([]).then((items) => {
 			if (!mounted) return;
 			setProfiles(normalizeProfiles(items));
 			setLoaded(true);
